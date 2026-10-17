@@ -5,7 +5,7 @@ import Lenis from 'lenis'
 ;(()=>{
 const d=document,root=d.documentElement,rm=root.classList.contains('rm');
 const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
-const hasG=true;let lenis:Lenis|null=null,pinP:number|null=null;
+const hasG=true;let lenis:Lenis|null=null;
 if(hasG){gsap.registerPlugin(ScrollTrigger);
  if(!rm){lenis=new Lenis({duration:1.15,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),anchors:true,smoothWheel:true});
   lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0)}}
@@ -24,48 +24,31 @@ if(rm||!cur){go()}else if(hasG){
 }else{setTimeout(()=>cur.classList.add('lift'),1300);setTimeout(go,1750);setTimeout(()=>cur.remove(),2900)}
 // reveal
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15,rootMargin:'0px 0px -6% 0px'});
-if(hasG&&!rm){ScrollTrigger.batch('.rv:not(.hero .rv),.page,.ul',{start:'top 90%',once:true,onEnter:els=>els.forEach((e,i)=>setTimeout(()=>e.classList.add('in'),i*90))})}
-else d.querySelectorAll<HTMLElement>('.rv,.page,.ul').forEach(el=>io.observe(el));
+if(hasG&&!rm){ScrollTrigger.batch('.rv:not(.hero .rv),.ul',{start:'top 90%',once:true,onEnter:els=>els.forEach((e,i)=>setTimeout(()=>e.classList.add('in'),i*90))})}
+else d.querySelectorAll<HTMLElement>('.rv,.ul').forEach(el=>io.observe(el));
 // nav + progress
 const bar=d.querySelector<HTMLElement>('.progress i'),nav=d.getElementById('nav');let ly=0;
 const links=[...d.querySelectorAll<HTMLElement>('.nav nav a')];
 const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
 links.forEach(a=>{const s=d.querySelector<HTMLElement>(a.getAttribute('href'));s&&so.observe(s)});
 // pinned track
-const pin=d.getElementById('blueprint'),track=d.getElementById('track'),pbar=d.getElementById('pbar'),pc=d.getElementById('pc'),pages=track.children.length;
-const desktop=()=>matchMedia('(min-width:901px)').matches;
-const sheets=[...d.querySelectorAll<HTMLElement>('.hs')],hero=d.querySelector<HTMLElement>('.hero');
+const hero=d.querySelector<HTMLElement>('.hero');
 let mx=0,my=0,smx=0,smy=0;
 function frame(){
  const y=scrollY,h=root.scrollHeight-innerHeight;
  bar.style.setProperty('--p',String(h?y/h:0));
- nav.classList.toggle('stuck',y>30);nav.classList.toggle('away',y>ly&&y>500);ly=y;
- if(!rm){
-  const hy=clamp(y/innerHeight);
-  sheets.forEach(s=>{const k=+s.dataset.depth;
-   s.style.setProperty('--tx',((hasG?smx:mx)*-18*k)+'px');
-   s.style.setProperty('--ty',((hasG?smy:my)*-12*k - y*.12*k)+'px');
-   s.style.setProperty('--r',getComputedStyle(s).getPropertyValue('--r'))});
- }
- if(desktop()&&!rm){
-  const r=pin.getBoundingClientRect(),total=pin.offsetHeight-innerHeight,p=pinP!==null?pinP:clamp(-r.top/total);
-  const max=track.scrollWidth-innerWidth+48;
-  track.style.transform=`translate3d(${-p*max}px,0,0)`;
-  pbar.style.setProperty('--pp',String(p));
-  pc.textContent=String(Math.min(pages,Math.floor(p*pages*.999)+1)).padStart(2,'0');
- }
+ nav.classList.toggle('stuck',y>30);ly=y;
  if(big)bigUpdate();
 }
 let t=false;const sched=()=>{if(hasG)return;if(!t){t=true;requestAnimationFrame(()=>{t=false;frame()})}};
 if(hasG){gsap.ticker.add(()=>{smx+=(mx-smx)*.08;smy+=(my-smy)*.08;frame()});
- ScrollTrigger.create({trigger:pin,start:'top top',end:'bottom bottom',onUpdate:self=>{pinP=self.progress},onRefresh:self=>{pinP=self.progress}})}
+ }
 else{addEventListener('scroll',sched,{passive:true});addEventListener('resize',sched)}
 // about words
 const big=d.getElementById('big');let sw=[];
 if(big&&!rm){big.innerHTML=big.textContent.split(' ').map(w=>`<span class="sw">${w}</span>`).join(' ');sw=[...big.children]}
 function bigUpdate(){if(!sw.length)return;const r=big.getBoundingClientRect(),p=clamp((innerHeight*.85-r.top)/(innerHeight*.45+r.height*.5));sw.forEach((s,i)=>s.style.opacity=.16+.84*clamp(p*sw.length*1.15-i))}
 // sheets keep their base rotation
-const rots=sheets.map(s=>getComputedStyle(s).getPropertyValue('--r'));
 frame();
 if(rm)return;
 // pointer
@@ -154,3 +137,50 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){tm=setInterval(()=>g
     else document.addEventListener('nota:go',()=>setTimeout(()=>h.reveal(),500),{once:true})
   }catch{ root.classList.remove('gl-on') }
 })()
+
+
+// THE READING: pinned scroll journey. Pure DOM, no WebGL, same on phones and desktop.
+;(()=>{
+  const d=document,root=d.documentElement,sec=d.getElementById('blueprint');if(!sec)return
+  const rm=root.classList.contains('rm')
+  if(rm){sec.classList.add('rd-static-on');root.classList.add('rd-static-on');return}
+  gsap.registerPlugin(ScrollTrigger)
+  ScrollTrigger.config({ignoreMobileResize:true})
+  const stage=sec.querySelector<HTMLElement>('.rd-stage')!
+  const qs=[...sec.querySelectorAll<HTMLElement>('.q')],hot=qs.filter(q=>q.classList.contains('hot')),cold=qs.filter(q=>!q.classList.contains('hot'))
+  const caps=[...sec.querySelectorAll<HTMLElement>('.rd-c')],tiles=sec.querySelector('.rd-tiles')!,sheet=sec.querySelector('.rd-sheet')!
+  const cta=sec.querySelector('.rd-cta')!,bar=sec.querySelector<HTMLElement>('#rdb')!,num=sec.querySelector('#rdn')!
+  const hint=sec.querySelector('#rdh');const tileEls=[...sec.querySelectorAll<HTMLElement>('.rd-tile')]
+  const setCap=(i:number)=>{caps.forEach((c,k)=>c.classList.toggle('on',k===i));num.textContent=String(i+1).padStart(2,'0');cta.classList.toggle('on',i===4);hint&&hint.classList.toggle('off',i>0)}
+  const toTile=(q:HTMLElement)=>{
+    const t=tileEls.find(x=>x.dataset.g===[...q.classList].find(c=>/^g[ABC]$/.test(c))!.slice(1))!
+    const a=q.getBoundingClientRect(),b=t.getBoundingClientRect()
+    return {x:b.left+b.width/2-(a.left+a.width/2),y:b.top+b.height*.3-(a.top+a.height/2)}
+  }
+  gsap.set(qs,{opacity:0,y:18})
+  gsap.set(sheet,{opacity:0,yPercent:-40,scale:.9,rotateX:14,transformPerspective:900})
+  gsap.set(tiles,{opacity:0,y:30})
+  const tl=gsap.timeline({defaults:{ease:'power2.inOut'},scrollTrigger:{trigger:stage,start:'top top',end:'+=420%',pin:true,scrub:.7,anticipatePin:1,invalidateOnRefresh:true,
+    onUpdate:s=>{bar.parentElement!.style.setProperty('--pp',s.progress.toFixed(3));setCap(s.progress<.2?0:s.progress<.42?1:s.progress<.66?2:s.progress<.9?3:4)}}})
+  tl.to(qs,{opacity:1,y:0,duration:1.4,stagger:.12,ease:'power2.out'},0)
+    .to(cold,{opacity:.22,duration:.6},2.6)
+    .to(hot,{color:'#ffffff',duration:.6},2.6)
+    .to(hot.map(q=>q.querySelector('path')),{strokeDashoffset:0,duration:.9,stagger:.14,ease:'power1.out'},2.8)
+    .to(tiles,{opacity:1,y:0,duration:.8},5.0)
+    .to(cold,{opacity:0,duration:.5},4.0)
+    .to(tiles,{opacity:0,y:-20,duration:.7},7.4)
+    .to(sheet,{opacity:1,yPercent:-50,scale:1,rotateX:0,duration:1.3,ease:'power3.out'},7.6)
+    .to({},{duration:1.2},9)
+  hot.forEach((q,i)=>{const t0=4.8+i*.22
+    tl.to(q,{x:()=>toTile(q).x,y:()=>toTile(q).y,scale:.5,duration:1.1},t0)
+      .to(q.querySelector('svg'),{opacity:0,duration:.4},t0)
+      .to(q,{opacity:0,duration:.5,ease:'power1.in'},t0+.55)})
+  addEventListener('load',()=>ScrollTrigger.refresh())
+})()
+
+// thumb-reach CTA on phones: shows after the hero, hides where a CTA already sits
+;(()=>{const fab=document.getElementById('fab');if(!fab)return
+ const hide=['blueprint','top'].map(i=>document.getElementById(i)),fin=document.querySelector('.final'),foot=document.querySelector('.foot')
+ const vis=new Set<Element>()
+ const io=new IntersectionObserver(es=>{es.forEach(e=>e.isIntersecting?vis.add(e.target):vis.delete(e.target));fab.classList.toggle('on',vis.size===0)},{threshold:.05})
+ ;[...hide,fin,foot,document.querySelector('.c-bp')].forEach(el=>el&&io.observe(el))})()
