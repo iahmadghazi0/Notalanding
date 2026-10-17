@@ -1,0 +1,33 @@
+<!doctype html>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=robots content=noindex>
+<title>NOTA Boards</title>
+<style>
+*{box-sizing:border-box;margin:0}
+body{background:#171715;color:#e9e7e1;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+header{display:flex;gap:10px;justify-content:center;padding:20px 16px 4px}
+.tab{appearance:none;border:1px solid #3c3c38;background:#1f1f1c;color:#b9b7ae;font:600 14px/1 system-ui,-apple-system,sans-serif;padding:11px 22px;border-radius:99px;cursor:pointer}
+.tab[aria-selected="true"]{background:#e9e7e1;color:#171715;border-color:#e9e7e1}
+main{padding:20px 16px 56px;max-width:1200px;margin:auto}
+figure{display:none}
+figure.on{display:block}
+img{display:block;width:100%;height:auto;border-radius:10px}
+.hint{text-align:center;color:#7d7d76;font:12px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.08em;margin:16px 0 0}
+</style>
+<header role=tablist aria-label="Brand boards">
+<button class=tab role=tab aria-selected=true data-b=board1>Board 1</button>
+<button class=tab role=tab aria-selected=false data-b=board2>Board 2</button>
+</header>
+<main>
+<figure class=on id=board1><a href=board1.jpg target=_blank rel=noopener><img src=board1.jpg alt="NOTA brand board 1 - indigo ink logo sketches and mockups"></a></figure>
+<figure id=board2><a href=board2.jpg target=_blank rel=noopener><img src=board2.jpg alt="NOTA brand board 2 - deep green identity system and mockups"></a></figure>
+<p class=hint>Tap a board to open it full size</p>
+</main>
+<script>
+const tabs=[...document.querySelectorAll('.tab')];
+tabs.forEach(t=>t.addEventListener('click',()=>{
+tabs.forEach(x=>x.setAttribute('aria-selected',x===t?'true':'false'));
+document.querySelectorAll('figure').forEach(f=>f.classList.toggle('on',f.id===t.dataset.b));
+}));
+</script>
