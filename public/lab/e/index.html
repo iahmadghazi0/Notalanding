@@ -1,0 +1,69 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>NOTA prototype E: every claim has a witness</title><link rel="stylesheet" href="../shared.css">
+<style>
+body{min-height:100svh}
+.top{position:fixed;inset:0 0 auto 0;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;z-index:20}
+.top img{height:30px;width:auto}
+main{max-width:1180px;margin:auto;padding:76px 20px 70px;display:grid;grid-template-columns:1fr;gap:20px}
+h1{font:400 clamp(34px,min(8.4vw,10.5svh),84px)/1 var(--serif)}h1 em{color:var(--acc)}
+.lead{color:#55554f;font-size:clamp(16px,1.25vw,19px);margin-top:12px;max-width:30em}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.chips button{font:500 15px var(--sans);min-height:44px;padding:0 16px;border-radius:99px;border:1.5px solid rgba(17,17,16,.25);background:#fff;cursor:pointer}.chips button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.paper{background:#f6f1e8;border-radius:14px;padding:18px 16px 20px;box-shadow:0 30px 70px -34px rgba(17,17,16,.55);position:relative}
+.ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.claims{display:grid;gap:8px}
+.claim{position:relative;text-align:left;width:100%;border:0;background:transparent;font:400 clamp(18px,4.6vw,24px)/1.22 var(--serif);padding:10px 8px 10px 12px;border-radius:8px;cursor:pointer;color:var(--ink);display:block}
+.claim .u{background:linear-gradient(transparent 62%,rgba(95,208,160,.0) 62%);background-size:100% 100%;transition:background .5s}
+.claim:not(.open) .u{background-image:linear-gradient(transparent 60%,rgba(214,150,60,.45) 60%)}
+.claim:before{content:"?";position:absolute;left:-2px;top:12px;width:20px;height:20px;border-radius:50%;background:#d6963c;color:#fff;font:700 12px/20px var(--sans);text-align:center;transform:translateX(-14px);display:none}
+.claim.open{background:#fff}
+.claim .src{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s cubic-bezier(.2,.8,.2,1)}
+.claim.open .src{grid-template-rows:1fr}
+.src>div{overflow:hidden}
+.win{margin:12px 0 4px;border:1px solid rgba(17,17,16,.15);border-radius:10px;background:#fbfbf9;font-family:var(--sans)}
+.win .bar{display:flex;gap:5px;align-items:center;padding:8px 10px;border-bottom:1px solid rgba(17,17,16,.1);font:11px ui-monospace,monospace;color:#8a8478}
+.win .bar i{width:8px;height:8px;border-radius:50%;background:#ddd}
+.win p{padding:12px 12px 4px;font-size:14px;line-height:1.5;color:#55554f}
+.win mark{background:rgba(95,208,160,.55);color:var(--ink);padding:1px 2px;border-radius:3px}
+.win small{display:block;padding:0 12px 12px;font:10px ui-monospace,monospace;letter-spacing:.1em;color:var(--acc);text-transform:uppercase}
+.mark{position:absolute;right:8px;top:8px;width:24px;height:24px;border-radius:50%;border:2px solid rgba(17,17,16,.2);display:grid;place-items:center;font-size:13px;color:#fff;transition:.4s}
+.claim.open .mark{background:var(--acc);border-color:var(--acc);transform:scale(1.1)}
+.claim{padding-right:40px}
+.meter{display:flex;align-items:center;gap:12px;margin-top:14px}
+.meter b{flex:1;height:8px;background:rgba(17,17,16,.1);border-radius:9px;overflow:hidden}.meter b i{display:block;height:100%;width:0;background:var(--acc);transition:width .5s}
+.meter span{font:12px ui-monospace,monospace;color:#6b6b64;white-space:nowrap}
+.stamp{position:absolute;right:14px;bottom:14px;border:3px solid var(--acc);color:var(--acc);padding:8px 14px;border-radius:8px;font:700 13px var(--sans);letter-spacing:.12em;text-transform:uppercase;transform:rotate(-8deg) scale(1.8);opacity:0;pointer-events:none;background:rgba(246,241,232,.9)}
+.stamp.on{opacity:1;transform:rotate(-8deg) scale(1);transition:transform .35s cubic-bezier(.3,1.6,.5,1),opacity .2s}
+.out{display:none;margin-top:6px}
+.out.on{display:block;animation:rise .7s both}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}}
+.out h2{font:400 clamp(26px,5vw,40px)/1.05 var(--serif);margin-bottom:12px}
+.p3{display:grid;gap:10px}.p3 div{background:var(--acc);color:#fff;border-radius:14px;padding:16px}.p3 b{font:400 22px var(--serif);display:block;margin-bottom:4px}.p3 span{font-size:14px;color:#dcf1e6;line-height:1.4}.p3 em{font:11px ui-monospace,monospace;font-style:normal;letter-spacing:.1em;display:block;margin-top:8px;color:var(--mint)}
+.next{margin-top:14px}
+.foot{text-align:center;padding-bottom:70px}
+@media(min-width:900px){main{grid-template-columns:5fr 6fr;gap:40px;align-items:start;padding-top:96px}.left{position:sticky;top:96px}.p3{grid-template-columns:repeat(3,1fr)}.out{grid-column:1/-1}.claim{font-size:23px}.paper{padding:24px}}
+</style></head><body class="grid">
+<div class="top"><img src="../assets/nota-logo.png" alt="NOTA" width="560" height="317"><span class="sample">Sample, illustrative</span></div>
+<main>
+<div class="left">
+<h1>Every claim <em>has a witness.</em></h1>
+<p class="lead">A blueprint never says a thing it cannot show. Tap any line on the page and open the proof behind it.</p>
+<div class="chips" id="chips" role="group" aria-label="Sample business"><button aria-pressed="true" data-k="bake">Bakery</button><button aria-pressed="false" data-k="studio">Studio</button><button aria-pressed="false" data-k="florist">Florist</button></div>
+<div class="meter"><b><i id="bar"></i></b><span id="cnt">0 of 4 witnessed</span></div>
+</div>
+<div class="paper" id="paper"><div class="ph"><span class="mono">Blueprint &middot; the mirror</span><span class="sample">Sample</span></div><div class="claims" id="claims"></div><div class="stamp" id="stamp">4 of 4 witnessed</div></div>
+<section class="out" id="out"><h2>Four checked claims became three pillars.</h2><div class="p3"><div><b>What guests see</b><span>The best of what is already true, shown first.</span><em>FROM CLAIMS 1 + 2</em></div><div><b>How guests take part</b><span>A way for a happy guest to pass it on.</span><em>FROM CLAIM 3</em></div><div><b>Where a waiting guest goes</b><span>One list with a reason to join.</span><em>FROM CLAIM 4</em></div></div>
+<p class="next"><a class="cta" href="mailto:iahmadghazii@gmail.com?subject=Blueprint">Reply &ldquo;Blueprint&rdquo; &rarr;</a></p></section>
+</main>
+<p class="foot mono">Prototype &middot; sample content only</p>
+<script>
+const D={
+bake:[["Guests drive across town for the bread.","Guest review, sample","&ldquo;Worth the drive. The loaf was still warm.&rdquo;","On your Reviews page"],["The oven has run since 5 every morning.","Your own words","&ldquo;We light the oven at five, every day.&rdquo;","On your About page"],["Your regulars already tell friends.","Guest review, sample","&ldquo;I bring everyone here. They all ask how I found it.&rdquo;","In a guest review this spring"],["Sold-out days end in a dead end.","Your shop page","&ldquo;Sold out. Check back soon.&rdquo;","On your Shop page"]],
+studio:[["Clients leave with something they keep.","Guest review, sample","&ldquo;I still wear the piece from our first session.&rdquo;","On your Reviews page"],["You teach before you sell.","Your own words","&ldquo;Every class starts with the why.&rdquo;","On your About page"],["Word of mouth fills your classes.","Guest review, sample","&ldquo;My sister sent me. Now I send everyone.&rdquo;","In a guest review this spring"],["The next class has no easy door.","Your classes page","&ldquo;Dates coming soon.&rdquo;","On your Classes page"]],
+florist:[["Weddings and weeks both run on your hands.","Your own words","&ldquo;Every stem is picked by me.&rdquo;","On your About page"],["Guests name the smell, not the price.","Guest review, sample","&ldquo;The shop smelled like a garden.&rdquo;","On your Reviews page"],["Gifts travel further than ads.","Guest review, sample","&ldquo;She cried. Everyone asked who made them.&rdquo;","In a guest review this spring"],["The next season has no waiting list.","Your home page","&ldquo;Follow for updates.&rdquo;","On your Home page"]]};
+const $=s=>document.querySelector(s);let key='bake',n=0;
+function render(){n=0;$('#out').classList.remove('on');$('#stamp').classList.remove('on');upd();
+ $('#claims').innerHTML=D[key].map((c,i)=>`<button class="claim" aria-expanded="false" data-i="${i}"><span class="u">${c[0]}</span><span class="mark">&#10003;</span><span class="src"><div><span class="win" style="display:block"><span class="bar" style="display:flex"><i></i><i></i><i></i>&nbsp;${c[3]}</span><p>${c[2]}</p><small>Witness: ${c[1]}</small></span></div></span></button>`).join('');
+ document.querySelectorAll('.claim').forEach(b=>b.onclick=()=>{if(b.classList.contains('open'))return;b.classList.add('open');b.setAttribute('aria-expanded','true');n++;upd();if(n===4){setTimeout(()=>{$('#stamp').classList.add('on');$('#out').classList.add('on');setTimeout(()=>$('#out').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'}),700)},500)}})}
+function upd(){$('#bar').style.width=n*25+'%';$('#cnt').textContent=n+' of 4 witnessed'}
+document.querySelectorAll('#chips button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#chips button').forEach(x=>x.setAttribute('aria-pressed',x===b));key=b.dataset.k;render()});
+render();
+</script></body></html>
