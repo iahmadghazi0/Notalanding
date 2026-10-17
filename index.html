@@ -25,131 +25,109 @@
 <link rel="preload" href="/src/assets/fonts/bricolage-grotesque_vf_latest_latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<script>document.documentElement.classList.add('js');if(matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('rm')</script>
+
 </head>
 <body>
-<div id="curtain" aria-hidden="true"><img src="nota-logo.png" alt="" width="560" height="317"></div>
-<div class="cursor" aria-hidden="true"><i></i></div>
-<div class="progress" aria-hidden="true"><i></i></div>
 <a class="skip" href="#main">Skip to content</a>
-
 <header class="nav" id="nav">
   <a class="logo" href="#top" aria-label="NOTA home"><img src="nota-logo.png" alt="NOTA" width="560" height="317"></a>
-  <nav aria-label="Primary">
-    <a href="#blueprint">Blueprint</a><a href="#how">How it works</a><a href="#products">Our products</a><a href="#about">About</a>
-  </nav>
-  <a class="btn btn-sm" href="mailto:iahmadghazii@gmail.com?subject=Blueprint" data-magnet>Reply "Blueprint"</a>
+  <nav aria-label="Primary"><a href="#story">The blueprint</a><a href="#how">How it works</a><a href="#products">Products</a><a href="#about">About</a></nav>
+  <a class="btn btn-sm" href="mailto:iahmadghazii@gmail.com?subject=Blueprint">Reply "Blueprint"</a>
 </header>
 
 <main id="main">
-<!-- HERO -->
 <section class="hero" id="top">
-  <div class="glow" aria-hidden="true"></div>
-  <canvas id="gl" aria-hidden="true"></canvas>
-  <img class="bigmark" src="nota-logo.png" alt="" aria-hidden="true" width="560" height="317">
-  <canvas id="ink" aria-hidden="true"></canvas>
-  <div class="wrap hero-in">
-    <p class="eyebrow rv"><span class="dot"></span>NOTA &middot; Brand Architect</p>
-    <h1 class="split" aria-label="A brand built from your own words.">
-      <span class="line"><span class="w">A</span> <span class="w">brand</span> <span class="w">built</span></span>
-      <span class="line"><span class="w">from</span> <span class="w"><em>your</em></span></span>
-      <span class="line"><span class="w circ">own words.<svg viewBox="0 0 600 200" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M70 128 C 36 52 190 10 330 10 C 500 10 596 48 586 104 C 576 164 430 194 300 194 C 160 194 36 166 44 100 C 50 56 110 30 200 20"/></svg></span></span>
-    </h1>
-    <p class="lede rv d3">NOTA is a brand practice for owner-run businesses with a story worth telling: shops, studios, makers, services, anywhere people come back to. We read what your customers already say about you, then turn it into a plan you can start on Monday.</p>
-    <div class="cta-row rv d4">
-      <a class="btn" href="#blueprint" data-magnet>See the blueprint <span class="arr">&rarr;</span></a>
-      <a class="link" href="#products">Our products</a>
-    </div>
-    <p class="fine rv d5">Built and run by Ahmad Ghazi, Brand Architect.</p>
+  <div class="hero-copy">
+    <p class="kicker"><i></i>NOTA &middot; Brand Architect</p>
+    <h1>A brand built from <em>your</em> <span class="circ">own words.<svg viewBox="0 0 600 200" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M70 128 C 36 52 190 10 330 10 C 500 10 596 48 586 104 C 576 164 430 194 300 194 C 160 194 36 166 44 100 C 50 56 110 30 200 20"/></svg></span></h1>
+    <p class="lede">For owner-run businesses with a story worth telling. We read what your customers already say, then turn it into a plan you can start on Monday.</p>
+    <div class="cta-row"><a class="btn btn-lg" href="mailto:iahmadghazii@gmail.com?subject=Blueprint">Reply "Blueprint" <span>&rarr;</span></a><a class="link" href="#story">See how it works <span>&darr;</span></a></div>
+    <p class="fine">Built and run by Ahmad Ghazi, Brand Architect. USA, Canada and UK.</p>
   </div>
-  <div class="scrollcue" aria-hidden="true"><span></span></div>
-  <p class="hint" aria-hidden="true">Draw on the paper</p>
-</section>
-
-<!-- THE READING: scroll journey -->
-<section class="rd" id="blueprint" aria-labelledby="rd-h">
-  <div class="rd-stage">
-    <div class="rd-top">
-      <p class="rd-step" aria-hidden="true"><b id="rdn">01</b> / 05</p>
-      <div class="rd-caps">
-        <div class="rd-c on"><span class="eyebrow">Listen</span><h2 id="rd-h">Your customers are already <em>telling you</em>.</h2><p class="rd-sub">Reviews, replies, the things people say at the counter.</p></div>
-        <div class="rd-c"><span class="eyebrow">Find the pattern</span><h2>The same few things <em>keep coming back</em>.</h2><p class="rd-sub">We look for what shows up again and again.</p></div>
-        <div class="rd-c"><span class="eyebrow">Name it</span><h2>Each one becomes a <em>pillar</em>.</h2><p class="rd-sub">Each one gets a name you can use.</p></div>
-        <div class="rd-c"><span class="eyebrow">Make it</span><h2>One finished page, <em>made for one business</em>.</h2><p class="rd-sub">Plan, palette and next step, on one page.</p></div>
-        <div class="rd-c"><span class="eyebrow">Your move</span><h2>You name the <em>day and time</em>.</h2><p class="rd-sub">No call. No form. One word by email.</p></div>
-      </div>
-    </div>
-    <div class="rd-field" aria-hidden="true">
-      <p class="q hot gA" style="--dx:4%;--dy:2%;--mx:2%;--my:3%"><span>&ldquo;Nothing here is mass made.&rdquo;</span><svg viewBox="0 0 300 70" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M18 40 C6 12 120 2 190 4 C270 6 298 26 288 44 C278 64 170 68 110 66 C50 64 6 54 12 34 C16 20 50 10 90 8"/></svg></p>
-      <p class="q hot gB" style="--dx:46%;--dy:10%;--mx:10%;--my:14%"><span>&ldquo;She remembered my name.&rdquo;</span><svg viewBox="0 0 300 70" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M18 40 C6 12 120 2 190 4 C270 6 298 26 288 44 C278 64 170 68 110 66 C50 64 6 54 12 34 C16 20 50 10 90 8"/></svg></p>
-      <p class="q" style="--dx:14%;--dy:26%;--mx:4%;--my:24%"><span>&ldquo;Worth the drive.&rdquo;</span></p>
-      <p class="q hot gA" style="--dx:52%;--dy:34%;--mx:14%;--my:35%"><span>&ldquo;You can tell it is made by hand.&rdquo;</span><svg viewBox="0 0 300 70" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M18 40 C6 12 120 2 190 4 C270 6 298 26 288 44 C278 64 170 68 110 66 C50 64 6 54 12 34 C16 20 50 10 90 8"/></svg></p>
-      <p class="q hot gB" style="--dx:2%;--dy:50%;--mx:2%;--my:46%"><span>&ldquo;Always the same warm hello.&rdquo;</span><svg viewBox="0 0 300 70" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M18 40 C6 12 120 2 190 4 C270 6 298 26 288 44 C278 64 170 68 110 66 C50 64 6 54 12 34 C16 20 50 10 90 8"/></svg></p>
-      <p class="q hot gC" style="--dx:50%;--dy:58%;--mx:12%;--my:57%"><span>&ldquo;Open late, never rushed.&rdquo;</span><svg viewBox="0 0 300 70" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M18 40 C6 12 120 2 190 4 C270 6 298 26 288 44 C278 64 170 68 110 66 C50 64 6 54 12 34 C16 20 50 10 90 8"/></svg></p>
-      <p class="q" style="--dx:22%;--dy:74%;--mx:3%;--my:68%"><span>&ldquo;My whole family goes.&rdquo;</span></p>
-      <p class="q hot gB" style="--dx:56%;--dy:82%;--mx:16%;--my:79%"><span>&ldquo;Someone here actually cares.&rdquo;</span><svg viewBox="0 0 300 70" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M18 40 C6 12 120 2 190 4 C270 6 298 26 288 44 C278 64 170 68 110 66 C50 64 6 54 12 34 C16 20 50 10 90 8"/></svg></p>
-      <p class="q hot gC" style="--dx:6%;--dy:90%;--mx:6%;--my:90%"><span>&ldquo;Takes its time, and it shows.&rdquo;</span><svg viewBox="0 0 300 70" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M18 40 C6 12 120 2 190 4 C270 6 298 26 288 44 C278 64 170 68 110 66 C50 64 6 54 12 34 C16 20 50 10 90 8"/></svg></p>
-      <div class="rd-tiles">
-        <div class="rd-tile" data-g="A"><small>01</small>Made by hand</div>
-        <div class="rd-tile" data-g="B"><small>02</small>Known by name</div>
-        <div class="rd-tile" data-g="C"><small>03</small>Never rushed</div>
-      </div>
-      <div class="rd-sheet"><img src="photos/blueprint-1.webp" alt="" width="910" height="1287"></div>
-    </div>
-    <div class="rd-foot">
-      <p class="rd-note">Sample lines and a sample page for an imagined business. Illustrative, not a client.</p>
-      <a class="btn btn-light rd-cta" href="mailto:iahmadghazii@gmail.com?subject=Blueprint" data-magnet>Reply "Blueprint" <span class="arr">&rarr;</span></a>
-    </div>
-    <p class="rd-hint" id="rdh" aria-hidden="true">Keep scrolling <span>&darr;</span></p>
-    <div class="rd-bar" aria-hidden="true"><i id="rdb"></i></div>
-  </div>
-  <div class="rd-static wrap">
-    <p class="eyebrow">The blueprint</p><h2>Your customers' words, turned into <em>one finished page</em>.</h2>
-    <p class="sub">We read what people already say, find what keeps coming back, name three pillars from it, and make the page. Sample page shown, not a client.</p>
+  <div class="hero-art" aria-hidden="true">
+    <canvas id="gl"></canvas>
+    <div class="sheet s3"><img src="photos/blueprint-3.webp" alt="" width="910" height="1287"></div>
+    <div class="sheet s2"><img src="photos/blueprint-2.webp" alt="" width="910" height="1287"></div>
+    <div class="sheet s1"><img src="photos/blueprint-1.webp" alt="" width="910" height="1287"></div>
+    <p class="stamp">Sample pages. Illustrative, not a client.</p>
   </div>
 </section>
 
-<!-- REAL PAGES (hidden until photos exist) -->
-<section class="sec gallery" id="pages">
+<section class="story" id="story">
+  <div class="story-in">
+    <aside class="story-rail">
+      <p class="kicker light"><i></i>The blueprint</p>
+      <h2>From what people say to <em>one finished page.</em></h2>
+      <ol class="steps" aria-label="Steps">
+        <li data-s="0" class="on"><b>01</b> Listen</li>
+        <li data-s="1"><b>02</b> Name it</li>
+        <li data-s="2"><b>03</b> Make it</li>
+      </ol>
+    </aside>
+    <div class="story-panels">
+      <article class="panel" data-s="0">
+        <p class="panel-tag">01 &middot; Listen</p>
+        <h3>Your customers are already telling you.</h3>
+        <p class="panel-sub">Reviews, replies, the things people say at the counter. The same few things keep coming back.</p>
+        <ul class="quotes"><li class="gA"><span>&ldquo;Nothing here is mass made.&rdquo;</span></li><li class="gB"><span>&ldquo;She remembered my name.&rdquo;</span></li><li class="gA"><span>&ldquo;You can tell it is made by hand.&rdquo;</span></li><li class="gB"><span>&ldquo;Always the same warm hello.&rdquo;</span></li><li class="gC"><span>&ldquo;Open late, never rushed.&rdquo;</span></li><li class="gC"><span>&ldquo;Takes its time, and it shows.&rdquo;</span></li><li class="gB"><span>&ldquo;Someone here actually cares.&rdquo;</span></li></ul>
+        <p class="note">Sample lines for an imagined business. Illustrative.</p>
+      </article>
+      <article class="panel" data-s="1">
+        <p class="panel-tag">02 &middot; Name it</p>
+        <h3>Each pattern becomes a pillar.</h3>
+        <p class="panel-sub">Each one gets a name you can use, in your own words.</p>
+        <div class="pillars">
+          <div><small>01</small><b>Made by hand</b><p>&ldquo;Nothing here is mass made.&rdquo;</p></div>
+          <div><small>02</small><b>Known by name</b><p>&ldquo;She remembered my name.&rdquo;</p></div>
+          <div><small>03</small><b>Never rushed</b><p>&ldquo;Open late, never rushed.&rdquo;</p></div>
+        </div>
+        <p class="note">Sample pillars. Illustrative.</p>
+      </article>
+      <article class="panel" data-s="2">
+        <p class="panel-tag">03 &middot; Make it</p>
+        <h3>One page, made for one business.</h3>
+        <p class="panel-sub">Plan, palette and your next step, on one page. No call, no form, one word by email.</p>
+        <div class="finished"><img src="photos/blueprint-1.webp" alt="Sample NOTA blueprint page" width="910" height="1287" loading="lazy"></div>
+        <a class="btn btn-light" href="mailto:iahmadghazii@gmail.com?subject=Blueprint">Reply "Blueprint" <span>&rarr;</span></a>
+        <p class="note">Sample page. Illustrative, not a client.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="pages">
   <div class="wrap">
-    <p class="eyebrow rv">From the work</p>
-    <h2 class="rv">One page, <em>three voices</em>.</h2>
-    <p class="sub rv d1">One blueprint page, three design directions. Sample copy, not a client.</p>
-        <div class="gal">
-      <figure class="slot" data-src="photos/blueprint-1.webp" data-name="blueprint-1.webp" data-ratio="910/1287"><figcaption>NOTA house style</figcaption></figure>
-      <figure class="slot" data-src="photos/blueprint-2.webp" data-name="blueprint-2.webp" data-ratio="910/1287"><figcaption>Hand-lettered</figcaption></figure>
-      <figure class="slot" data-src="photos/blueprint-3.webp" data-name="blueprint-3.webp" data-ratio="910/1287"><figcaption>Architectural sketch</figcaption></figure>
+    <p class="kicker"><i></i>From the work</p>
+    <h2>One page, <em>three voices.</em></h2>
+    <p class="sub">One blueprint page in three design directions. Sample copy, not a client.</p>
+    <div class="gal">
+      <figure><img src="photos/blueprint-1.webp" alt="NOTA house style sample page" width="910" height="1287" loading="lazy"><figcaption>NOTA house style</figcaption></figure>
+      <figure><img src="photos/blueprint-2.webp" alt="Hand-lettered sample page" width="910" height="1287" loading="lazy"><figcaption>Hand-lettered</figcaption></figure>
+      <figure><img src="photos/blueprint-3.webp" alt="Architectural sketch sample page" width="910" height="1287" loading="lazy"><figcaption>Architectural sketch</figcaption></figure>
     </div>
   </div>
 </section>
 
-<!-- HOW -->
-<section class="sec dark" id="how">
-  <canvas id="flow" aria-hidden="true"></canvas>
+<section class="how" id="how">
   <div class="wrap">
-    <p class="eyebrow rv">How it works</p>
-    <h2 class="rv">We start with the <em>gift</em>.</h2>
-    <p class="sub rv d1">We do not have a wall of case studies yet, and we will not invent one. So the first piece of work comes before any ask.</p>
-    <div class="giant">
-      <div class="gi rv"><span class="gn">01</span><h3>Honor</h3><p>The first lines of anything we write are about you. Not us.</p></div>
-      <div class="gi rv"><span class="gn">02</span><h3>Gift</h3><p>A finished blueprint, made for your business, with nothing to sign.</p></div>
-      <div class="gi rv"><span class="gn">03</span><h3>Door</h3><p>One word back is all it takes. No call, no form, no price in the way.</p></div>
+    <p class="kicker light"><i></i>How it works</p>
+    <h2>We start with the <em>gift.</em></h2>
+    <p class="sub">We do not have a wall of case studies yet, and we will not invent one. So the first piece of work comes before any ask.</p>
+    <div class="trio">
+      <div><b>Honor</b><p>The first lines of anything we write are about you. Not us.</p></div>
+      <div><b>Gift</b><p>A finished blueprint, made for your business, with nothing to sign.</p></div>
+      <div><b>Door</b><p>One word back is all it takes. No call, no form, no price in the way.</p></div>
     </div>
-    <div class="rules">
-      <div class="rule rv"><b>Every claim has a <span class="ul">witness<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4 12 C70 4 150 16 296 7"/></svg></span>.</b><span>Each point names the page you can check it on.</span></div>
-      <div class="rule rv d1"><b>Never template.</b><span>Strip your name out and no sentence should fit another business.</span></div>
-      <div class="rule rv d2"><b>Plain words.</b><span>Craft first. No hype, no fear, no fake scarcity.</span></div>
-    </div>
+    <ul class="rules"><li><b>Every claim has a witness.</b> Each point names the page you can check it on.</li><li><b>Never template.</b> Strip your name out and no sentence should fit another business.</li><li><b>Plain words.</b> Craft first. No hype, no fear, no fake scarcity.</li></ul>
   </div>
 </section>
 
-<!-- PRODUCTS -->
-<section class="sec" id="products">
+<section class="products" id="products">
   <div class="wrap">
-    <p class="eyebrow rv">Our products</p>
-    <h2 class="rv">Notabuild. <em>The website you own.</em></h2>
-    <p class="sub rv d1">Edit the actual page, not a dashboard about the page. Start from a template or a custom build, one engine under both.</p>
-    <div class="nbshow rv d1">
+    <p class="kicker"><i></i>Our products</p>
+    <h2>Notabuild. <em>The website you own.</em></h2>
+    <p class="sub">Edit the actual page, not a dashboard about the page. Start from a template or a custom build, one engine under both.</p>
+    <div class="nbshow">
       <div class="nbtabs" role="tablist" aria-label="Notabuild templates">
         <button role="tab" class="on" data-i="0" aria-selected="true"><b>Cinder</b><span>Warm, editorial, one table</span></button>
         <button role="tab" data-i="1" aria-selected="false"><b>Flint House</b><span>Loud, quick, counter service</span></button>
@@ -164,71 +142,59 @@
         </div>
       </div>
     </div>
-    <p class="fine rv">Demo templates running on Notabuild today. Content is illustrative.</p>
+    <p class="note dark">Demo templates running on Notabuild today. Content is illustrative.</p>
     <div class="nbfeat">
-      <div class="rv"><b>Edit in place</b><span>Click any line on the live page and change it. No dashboard in between.</span></div>
-      <div class="rv d1"><b>Change log and undo</b><span>Every edit is recorded. Step back whenever you like.</span></div>
-      <div class="rv d2"><b>Works on a phone</b><span>Update your page from the counter, the studio or the road.</span></div>
+      <div><b>Edit in place</b><span>Click any line on the live page and change it. No dashboard in between.</span></div>
+      <div><b>Change log and undo</b><span>Every edit is recorded. Step back whenever you like.</span></div>
+      <div><b>Works on a phone</b><span>Update your page from the counter, the studio or the road.</span></div>
     </div>
-    <div class="nbcta rv"><a class="btn btn-ink" href="https://notabuild.com" target="_blank" rel="noopener" data-magnet>Visit notabuild.com <span class="arr">&nearr;</span></a></div>
-    <article class="card c-bp wide rv tilt">
-      <div class="art" aria-hidden="true"><i></i><i></i><i></i></div>
-      <div class="ct">
-        <p class="eyebrow sm">Brand, where every Notabuild starts</p>
+    <p><a class="btn btn-ink" href="https://notabuild.com" target="_blank" rel="noopener">Visit notabuild.com <span>&nearr;</span></a></p>
+
+    <article class="bp">
+      <div class="bp-art" aria-hidden="true"><img src="photos/blueprint-1.webp" alt="" width="910" height="1287" loading="lazy"><img src="photos/blueprint-2.webp" alt="" width="910" height="1287" loading="lazy"><img src="photos/blueprint-3.webp" alt="" width="910" height="1287" loading="lazy"></div>
+      <div class="bp-copy">
+        <p class="kicker light"><i></i>Brand, where every Notabuild starts</p>
         <h3>NOTA <em>Blueprint</em></h3>
         <p>A strategic blueprint, visual direction and a mood board kit, written from your own words and built to be used.</p>
         <ul><li>Mirror, diagnosis and pivot</li><li>Three named pillars</li><li>Palette, type and photo kit</li></ul>
-        <a class="btn btn-light" href="mailto:iahmadghazii@gmail.com?subject=Blueprint" data-magnet>Reply "Blueprint" <span class="arr">&rarr;</span></a>
+        <a class="btn btn-light" href="mailto:iahmadghazii@gmail.com?subject=Blueprint">Reply "Blueprint" <span>&rarr;</span></a>
       </div>
     </article>
-
   </div>
 </section>
 
-<!-- ABOUT -->
-<section class="sec soft" id="about">
-  <div class="wrap about">
+<section class="about" id="about">
+  <div class="wrap about-in">
     <div>
-      <p class="eyebrow rv">About</p>
-      <h2 class="rv">Built and run by <em>one person</em>.</h2>
-      <p class="rv region">Working with owner-run businesses in the USA, Canada and the UK.</p>
-      <figure class="slot portrait" data-src="photos/portrait.jpg" data-name="portrait.jpg" data-ratio="4/5"><figcaption>Ahmad Ghazi</figcaption></figure>
-      <img class="sign rv d1" src="nota-logo.png" alt="" width="560" height="317">
+      <p class="kicker"><i></i>About</p>
+      <h2>Built and run by <em>one person.</em></h2>
+      <p class="sub">Working with owner-run businesses in the USA, Canada and the UK.</p>
+      <p class="bio">I am Ahmad Ghazi, Brand Architect, and the founder of NOTA and Notabuild. I research small, owner-run businesses closely, write the plan by hand and code the sites myself.</p>
+      <p class="sub">One person means one conversation. You talk to the person doing the work.</p>
     </div>
-    <div>
-      <p class="big" id="big">I am Ahmad Ghazi, Brand Architect, and the founder of NOTA and Notabuild. I research small, owner-run businesses closely, write the plan by hand and code the sites myself.</p>
-      <p class="rv">One person means one conversation. You talk to the person doing the work.</p>
-    </div>
+    <figure class="slot portrait" data-src="photos/portrait.jpg" data-ratio="4/5"><figcaption>Ahmad Ghazi</figcaption></figure>
   </div>
 </section>
 
-<section class="sec faq-sec">
+<section class="faq">
   <div class="wrap narrow">
-    <h2 class="rv">Questions, answered directly.</h2>
-    <div class="faq">
-      <details class="rv"><summary>Is the blueprint really free?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><div><p>Yes. We make the first one before any ask, and you decide what happens next.</p></div></div></details>
-      <details class="rv d1"><summary>What do you need from me?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><div><p>One word by email. We work from what is already public about your business.</p></div></div></details>
-      <details class="rv d2"><summary>Can I take only the website?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><div><p>Yes. Notabuild stands on its own, and so does the blueprint.</p></div></div></details>
-    </div>
+    <h2>Questions, answered directly.</h2>
+    <details><summary>Is the blueprint really free?<span aria-hidden="true"></span></summary><p>Yes. We make the first one before any ask, and you decide what happens next.</p></details>
+    <details><summary>What do you need from me?<span aria-hidden="true"></span></summary><p>One word by email. We work from what is already public about your business.</p></details>
+    <details><summary>Can I take only the website?<span aria-hidden="true"></span></summary><p>Yes. Notabuild stands on its own, and so does the blueprint.</p></details>
   </div>
 </section>
 
 <section class="final">
   <div class="wrap">
-    <img class="final-logo rv" src="nota-logo.png" alt="" width="560" height="317">
-    <h2 class="rv">Send one word.</h2>
-    <p class="rv d1">Reply <b>Blueprint</b> and tell us which business it is for. The first one is on us.</p>
-    <a class="btn btn-lg rv d2" href="mailto:iahmadghazii@gmail.com?subject=Blueprint" data-magnet>iahmadghazii@gmail.com <span class="arr">&rarr;</span></a>
+    <img src="nota-logo.png" alt="" width="560" height="317">
+    <h2>Send one word.</h2>
+    <p>Reply <b>Blueprint</b> and tell us which business it is for. The first one is on us.</p>
+    <a class="btn btn-light btn-lg" href="mailto:iahmadghazii@gmail.com?subject=Blueprint">iahmadghazii@gmail.com <span>&rarr;</span></a>
   </div>
 </section>
 </main>
-
-<footer class="foot">
-  <div class="wrap foot-in">
-    <span class="foot-brand"><img src="nota-logo.png" alt="NOTA" width="560" height="317"> &copy; 2026 NOTA &middot; by Ahmad Ghazi</span>
-    <span><a href="#top">Top</a> &middot; <a href="https://notabuild.com" target="_blank" rel="noopener">notabuild.com</a></span>
-  </div>
-</footer>
+<footer class="foot"><div class="wrap foot-in"><span><img src="nota-logo.png" alt="NOTA" width="560" height="317"> &copy; 2026 NOTA &middot; by Ahmad Ghazi</span><span><a href="#top">Top</a> &middot; <a href="https://notabuild.com" target="_blank" rel="noopener">notabuild.com</a></span></div></footer>
 <a class="fab" id="fab" href="mailto:iahmadghazii@gmail.com?subject=Blueprint">Reply "Blueprint" <span aria-hidden="true">&rarr;</span></a>
 <script type="module" src="/src/main.ts"></script>
 </body>
