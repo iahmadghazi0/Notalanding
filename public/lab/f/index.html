@@ -1,0 +1,95 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>NOTA prototype F: move the door</title><link rel="stylesheet" href="../shared.css">
+<style>
+body{min-height:100svh}
+.top{position:fixed;inset:0 0 auto 0;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;z-index:20}
+.top img{height:30px;width:auto}
+main{max-width:1180px;margin:auto;padding:70px 18px 50px;display:grid;gap:14px}
+h1{font:400 clamp(32px,min(8vw,10svh),80px)/1 var(--serif)}h1 em{color:var(--acc)}
+.lead{color:#55554f;font-size:clamp(16px,1.2vw,19px);margin-top:10px;max-width:30em}
+.scene{background:#f6f1e8;border-radius:16px;box-shadow:0 30px 70px -34px rgba(17,17,16,.55);padding:6px;touch-action:none;position:relative}
+svg{display:block;width:100%;height:auto;max-height:62svh;margin:auto}
+.room{fill:#fff;stroke:rgba(17,17,16,.18);stroke-width:1.5;transition:fill .5s}
+.rt{font:400 12px Boska,Georgia,serif;fill:#6b6b64;text-anchor:middle}
+.wall{fill:none;stroke:var(--ink);stroke-width:4}
+.st{font:10px ui-monospace,monospace;letter-spacing:.14em;fill:#8a8478;text-anchor:middle}
+.gst{fill:#111110;opacity:.75}.gin{fill:var(--acc)}
+#door{cursor:grab}
+.dgl{fill:rgba(14,107,69,.18);animation:pul 1.6s infinite}
+@keyframes pul{50%{r:30;opacity:.4}}
+.panel{display:grid;gap:10px}
+.say{font:400 clamp(22px,5vw,34px)/1.1 var(--serif);min-height:2.3em}.say em{color:var(--acc)}
+.tbl{display:grid;grid-template-columns:1fr 1fr;border-radius:14px;overflow:hidden;border:1px solid rgba(17,17,16,.14)}
+.tbl div{padding:12px 14px;font-size:14px;line-height:1.35;transition:.5s}.tbl .h{font:11px ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;background:#eee}
+.tbl .a{background:#fff;color:#6b6b64}.tbl .b{background:#e8efe9;color:#8a9a90}
+.tbl.on .a{background:#f2f2ef;color:#aaa;text-decoration:line-through}.tbl.on .b{background:var(--acc);color:#fff}.tbl.on .h.b{background:#0a4d32;color:#fff}
+.stat{display:flex;align-items:baseline;gap:10px}.stat b{font:400 clamp(44px,12vw,72px)/1 var(--serif);color:var(--acc)}.stat span{font:12px ui-monospace,monospace;color:#6b6b64;letter-spacing:.06em}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn2{font:500 15px var(--sans);min-height:48px;padding:0 20px;border-radius:99px;border:1.5px solid rgba(17,17,16,.3);background:#fff;cursor:pointer}
+.next{opacity:.25;pointer-events:none;transition:.6s}.next.on{opacity:1;pointer-events:auto}
+.foot{text-align:center;padding:0 0 60px}
+@media(min-width:900px){main{grid-template-columns:7fr 5fr;gap:36px;padding-top:92px;align-items:center}.head{grid-column:1/-1}.tbl div{font-size:15px}svg{max-height:70svh}}
+</style></head><body class="grid">
+<div class="top"><img src="../assets/nota-logo.png" alt="NOTA" width="560" height="317"><span class="sample">Sample, illustrative</span></div>
+<main>
+<div class="head"><h1>A hidden gem <em>needs a front door.</em></h1><p class="lead">Drag the door. Guests walk the street either way. See who comes in, and which room they walk into.</p></div>
+<div class="scene" id="scene">
+<svg id="svg" viewBox="0 0 360 440" role="img" aria-label="Floor plan of a sample business with a draggable door and guests walking past on a street">
+<rect x="40" y="60" width="280" height="250" rx="6" fill="#fbfbf9"/>
+<g id="rooms"></g>
+<rect class="wall" x="40" y="60" width="280" height="250" rx="6"/>
+<text class="st" x="180" y="46">BACK LANE (QUIET)</text>
+<rect x="0" y="352" width="360" height="56" fill="rgba(17,17,16,.06)"/><line x1="0" y1="380" x2="360" y2="380" stroke="rgba(17,17,16,.25)" stroke-dasharray="6 8"/>
+<text class="st" x="180" y="428">THE STREET &middot; SAMPLE GUESTS</text>
+<g id="gs"></g>
+<g id="door"><circle class="dgl" id="glow" r="22" cx="0" cy="0"/><rect id="seg" x="-24" y="-5" width="48" height="10" rx="5" fill="#0e6b45"/><circle r="17" fill="#0e6b45" stroke="#fff" stroke-width="3"/><text x="0" y="5" text-anchor="middle" font-size="14" fill="#fff" font-family="sans-serif">&#8596;</text></g>
+</svg></div>
+<div class="panel">
+<div class="say" id="say">The door is at the back. <em>Guests walk past.</em></div>
+<div class="stat"><b id="in">0</b><span id="of">CAME IN &middot; OF 0 WHO PASSED</span></div>
+<div class="tbl" id="tbl"><div class="h">Guest finds now</div><div class="h b">What we add</div><div class="a">A door on the wrong page.</div><div class="b">A door where guests already walk.</div><div class="a">A list with no reason to join.</div><div class="b">Three rooms, each with a name.</div></div>
+<div class="row"><button class="btn2" id="snap">Show me the street side</button><button class="btn2" id="rst">Reset</button></div>
+<div class="row"><a class="cta next" id="next" href="mailto:iahmadghazii@gmail.com?subject=Blueprint">Reply &ldquo;Blueprint&rdquo; &rarr;</a></div>
+</div>
+</main>
+<p class="foot mono">Prototype &middot; sample content only</p>
+<script>
+const NS='http://www.w3.org/2000/svg',svg=document.getElementById('svg'),$=s=>document.querySelector(s);
+const R={l:40,r:320,t:60,b:310};
+const names=['What guests see','How guests take part','Where a waiting guest goes'];
+const rooms=[];names.forEach((n,i)=>{const x=R.l+i*93.3;const rc=document.createElementNS(NS,'rect');rc.setAttribute('class','room');rc.setAttribute('x',x+4);rc.setAttribute('y',R.t+6);rc.setAttribute('width',85);rc.setAttribute('height',R.b-R.t-12);rc.setAttribute('rx',4);$('#rooms').appendChild(rc);rooms.push({el:rc,n:0,cx:x+46.6});
+ [['What guests','see'],['How guests','take part'],['Where a','waiting','guest goes']][i].forEach((ln,k)=>{const t=document.createElementNS(NS,'text');t.setAttribute('class','rt');t.setAttribute('x',x+46.6);t.setAttribute('y',R.t+28+k*14);t.textContent=ln;$('#rooms').appendChild(t)})});
+let door={w:'t',p:.78},gs=[],passed=0,came=0,last=0,spawnT=0,seed=1;
+const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
+function doorXY(){const p=door.p;return door.w==='t'?[R.l+p*(R.r-R.l),R.t]:door.w==='b'?[R.l+p*(R.r-R.l),R.b]:door.w==='l'?[R.l,R.t+p*(R.b-R.t)]:[R.r,R.t+p*(R.b-R.t)]}
+function place(){const[x,y]=doorXY();const g=$('#door');g.setAttribute('transform',`translate(${x},${y})`);$('#seg').setAttribute('transform',(door.w==='l'||door.w==='r')?'rotate(90)':'');
+ const bottom=door.w==='b';$('#say').innerHTML=bottom?'The door is on the street. <em>Guests walk in.</em>':(door.w==='t'?'The door is at the back. <em>Guests walk past.</em>':'The door is on the side. <em>Some find it.</em>');
+ $('#tbl').classList.toggle('on',bottom);$('#next').classList.toggle('on',bottom||came>6)}
+function prob(){return door.w==='b'?.8:(door.w==='l'||door.w==='r')?.22:.03}
+function reset(){gs.forEach(g=>g.el.remove());gs=[];passed=0;came=0;rooms.forEach(r=>{r.n=0;r.el.style.fill='#fff'});stat()}
+function stat(){$('#in').textContent=came;$('#of').innerHTML='CAME IN &middot; OF '+passed+' WHO PASSED'}
+function spawn(){const el=document.createElementNS(NS,'circle');el.setAttribute('r',6);el.setAttribute('class','gst');svg.querySelector('#gs').appendChild(el);gs.push({el,x:-10,y:366+rnd()*28,s:'w',sp:70+rnd()*30,dec:false,room:Math.floor(rnd()*3),t:0})}
+function step(ts){const dt=Math.min(.05,(ts-last)/1000||0);last=ts;spawnT+=dt;if(spawnT>.32&&gs.length<40){spawnT=0;spawn()}
+ const[dx,dy]=doorXY();
+ gs.forEach(g=>{
+  if(g.s==='w'){g.x+=g.sp*dt;
+   const near=door.w==='b'?Math.abs(g.x-dx)<3:door.w==='t'?Math.abs(g.x-dx)<3:door.w==='l'?g.x<R.l+3:g.x>R.r-3;
+   if(!g.dec&&near){g.dec=true;if(rnd()<prob()){g.s='a';g.tx=dx;g.ty=door.w==='b'?R.b:(door.w==='t'?R.t:dy)}}
+   if(g.x>370){g.el.remove();g.dead=1;passed++;stat()}}
+  else if(g.s==='a'){const ax=g.tx-g.x,ay=g.ty-g.y,d=Math.hypot(ax,ay);if(d<3){g.s='i'}else{const v=70*dt;g.x+=ax/d*v;g.y+=ay/d*v}}
+  else if(g.s==='i'){const room=rooms[g.room],ax=room.cx-g.x,ay=(R.t+120)-g.y,d=Math.hypot(ax,ay);if(d<3){g.s='h';came++;passed++;room.n++;room.el.style.fill=`rgba(14,107,69,${Math.min(.5,.08+room.n*.05)})`;g.el.setAttribute('class','gin');stat();place()}else{const v=50*dt;g.x+=ax/d*v;g.y+=ay/d*v}}
+  g.el.setAttribute('cx',g.x);g.el.setAttribute('cy',g.y)});
+ gs=gs.filter(g=>!g.dead);requestAnimationFrame(step)}
+function toSvg(e){const pt=svg.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;return pt.matrixTransform(svg.getScreenCTM().inverse())}
+function snapTo(x,y){const c=Math.max(R.l,Math.min(R.r,x)),c2=Math.max(R.t,Math.min(R.b,y));const d={t:Math.abs(y-R.t),b:Math.abs(y-R.b),l:Math.abs(x-R.l),r:Math.abs(x-R.r)};let w='t',m=1e9;for(const k in d)if(d[k]<m){m=d[k];w=k}
+ const nw=w,np=(w==='t'||w==='b')?(c-R.l)/(R.r-R.l):(c2-R.t)/(R.b-R.t);const ch=nw!==door.w;door={w:nw,p:Math.max(.08,Math.min(.92,np))};return ch}
+let drag=false;
+$('#door').addEventListener('pointerdown',e=>{drag=true;$('#door').setPointerCapture(e.pointerId);$('#glow').style.display='none';e.preventDefault()});
+svg.addEventListener('pointermove',e=>{if(!drag)return;const p=toSvg(e);snapTo(p.x,p.y);place()});
+const end=()=>{if(drag){drag=false;reset()}};svg.addEventListener('pointerup',end);svg.addEventListener('pointercancel',end);
+svg.addEventListener('click',e=>{if(e.target.closest('#door'))return;const p=toSvg(e);snapTo(p.x,p.y);place();reset()});
+$('#snap').onclick=()=>{door={w:'b',p:.5};$('#glow').style.display='none';place();reset()};
+$('#rst').onclick=()=>{door={w:'t',p:.78};$('#glow').style.display='';place();reset()};
+place();stat();
+if(matchMedia('(prefers-reduced-motion:reduce)').matches){/* still sim, no pulse */$('#glow').style.display='none'}
+requestAnimationFrame(step);
+</script></body></html>
