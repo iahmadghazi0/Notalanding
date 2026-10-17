@@ -1,0 +1,70 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>NOTA prototype C: brush it in</title><link rel="stylesheet" href="../shared.css">
+<style>
+html,body{height:100%;overflow:hidden;overscroll-behavior:none}
+body{background:#efe9dd;touch-action:none;-webkit-user-select:none;user-select:none}
+.grain{position:fixed;inset:0;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .3  0 0 0 0 .25  0 0 0 0 .2  0 0 0 .22 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");opacity:.55;pointer-events:none;z-index:1}
+.vig{position:fixed;inset:0;background:radial-gradient(80% 70% at 50% 45%,transparent 55%,rgba(60,45,25,.18));pointer-events:none;z-index:1}
+canvas{position:fixed;inset:0;width:100%;height:100%;cursor:crosshair;z-index:2}
+.top{position:fixed;top:0;left:0;right:0;text-align:center;padding:clamp(24px,6svh,60px) 20px 0;z-index:3;pointer-events:none}
+.top h1{font:400 clamp(30px,min(5vw,8svh),72px)/1.05 var(--serif);transition:opacity .6s,transform .8s}
+.top h1 em{color:var(--acc)}.top p{margin-top:10px;font:12px ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#8a8070}
+.end{position:fixed;left:0;right:0;bottom:clamp(28px,7svh,70px);text-align:center;z-index:3;opacity:0;transform:translateY(18px);transition:opacity .8s .5s,transform .9s .5s;pointer-events:none;padding:0 20px}
+.end.on{opacity:1;transform:none;pointer-events:auto}.end h2{font:400 clamp(26px,4.4vw,56px)/1.05 var(--serif);margin-bottom:16px}.end h2 em{color:var(--acc)}
+.bar{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));width:min(240px,50vw);height:3px;background:rgba(17,17,16,.12);border-radius:9px;z-index:3;transform:translateX(-50%)}.bar i{display:block;height:100%;width:0;background:var(--acc);border-radius:9px}
+.tag{z-index:4}.mini{z-index:4}
+</style></head><body>
+<div class="grain"></div><div class="vig"></div>
+<a class="mini" href="#"><img src="../assets/nota-logo.png" alt="NOTA" width="560" height="317" style="opacity:0"></a>
+<canvas id="c" aria-label="Paint with your finger or mouse to reveal the NOTA mark"></canvas>
+<div class="top"><h1 id="t1">Brush it <em>in.</em></h1><p id="t2">Drag over the paper</p></div>
+<div class="end" id="end"><h2>Made by hand. <em>Yours next.</em></h2><a class="cta" href="mailto:iahmadghazii@gmail.com?subject=Blueprint">Reply "Blueprint" &rarr;</a></div>
+<div class="bar"><i id="bar"></i></div>
+<p class="tag">NOTA prototype C. Paint with a finger or the mouse.</p>
+<script>
+const cv=document.getElementById('c'),ctx=cv.getContext('2d');
+const logo=new Image();logo.src='../assets/nota-logo.png';
+let trail=true,W,H,dpr,mask,mx,tmp,tx,L={x:0,y:0,w:0,h:0},small,sx,cov=0,done=false,last=null,dirty=true,lastChk=0,ghost=true;
+const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function size(){dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;
+ if(!innerWidth)return;const old=mask;mask=document.createElement('canvas');mask.width=cv.width;mask.height=cv.height;mx=mask.getContext('2d');if(old&&old.width)mx.drawImage(old,0,0,mask.width,mask.height);
+ tmp=document.createElement('canvas');tmp.width=cv.width;tmp.height=cv.height;tx=tmp.getContext('2d');
+ const w=Math.min(W*.86,680,H*1.15);L.w=w;L.h=w*317/560;L.x=(W-w)/2;L.y=H*.5-L.h/2+ (H>W?0:H*.02);
+ small=document.createElement('canvas');small.width=140;small.height=Math.round(140*317/560);sx=small.getContext('2d',{willReadFrequently:true});
+ dirty=true}
+function lg(){sx.clearRect(0,0,small.width,small.height);sx.drawImage(logo,0,0,small.width,small.height);const d=sx.getImageData(0,0,small.width,small.height).data;lg.a=[];for(let i=3;i<d.length;i+=4)if(d[i]>60)lg.a.push(i)}
+function coverage(){// how much of the real mark has been painted
+ sx.clearRect(0,0,small.width,small.height);sx.drawImage(mask,L.x*dpr,L.y*dpr,L.w*dpr,L.h*dpr,0,0,small.width,small.height);
+ const d=sx.getImageData(0,0,small.width,small.height).data;let n=0;for(const i of lg.a)if(d[i]>110)n++;return n/lg.a.length}
+let seed=1;const r=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
+function dab(x,y,p){const R=(W<700?24:34)*(.8+p*.5);mx.save();mx.scale(dpr,dpr);
+ for(let i=0;i<22;i++){const a=r()*6.283,d=Math.sqrt(r())*R;if(r()<.12)continue;mx.globalAlpha=.55+r()*.45;mx.beginPath();mx.arc(x+Math.cos(a)*d,y+Math.sin(a)*d*.8,1.6+r()*3.6,0,6.283);mx.fill()}
+ mx.restore();dirty=true}
+function stroke(x,y,p){if(last){const dx=x-last.x,dy=y-last.y,dist=Math.hypot(dx,dy),n=Math.max(1,Math.floor(dist/5));for(let i=1;i<=n;i++)dab(last.x+dx*i/n,last.y+dy*i/n,p)}else dab(x,y,p);last={x,y}}
+function render(now){
+ if(innerWidth&&(innerWidth!==W||innerHeight!==H)){size();lg()}
+ if(dirty||!done&&0){ctx.clearRect(0,0,cv.width,cv.height);
+  // faint hint of the mark
+  ctx.save();ctx.globalAlpha=done?0:.07;ctx.drawImage(logo,L.x*dpr,L.y*dpr,L.w*dpr,L.h*dpr);ctx.restore();
+  // painted paper trail, soft ink
+  tx.clearRect(0,0,tmp.width,tmp.height);tx.drawImage(mask,0,0);tx.globalCompositeOperation='source-in';tx.fillStyle='rgba(17,17,16,.10)';tx.fillRect(0,0,tmp.width,tmp.height);tx.globalCompositeOperation='source-over';if(trail)ctx.drawImage(tmp,0,0);
+  // the real mark, revealed only where you painted
+  tx.clearRect(0,0,tmp.width,tmp.height);tx.drawImage(logo,L.x*dpr,L.y*dpr,L.w*dpr,L.h*dpr);tx.globalCompositeOperation='destination-in';tx.drawImage(mask,0,0);tx.globalCompositeOperation='source-over';ctx.drawImage(tmp,0,0);
+  dirty=false}
+ if(!done&&now-lastChk>160){lastChk=now;if(lg.a){cov=coverage();document.getElementById('bar').style.width=Math.min(100,cov/.62*100)+'%';if(cov>.62)finish()}}
+ requestAnimationFrame(render)}
+function finish(){if(done)return;done=true;setTimeout(()=>{trail=false;dirty=true},1400);document.getElementById('bar').style.width='100%';
+ let t=0;const fl=()=>{t+=.04;mx.save();mx.scale(dpr,dpr);mx.globalAlpha=1;mx.fillStyle='#000';for(let i=0;i<40;i++){mx.beginPath();mx.arc(L.x+r()*L.w,L.y+r()*L.h,10+r()*30,0,6.283);mx.fill()}mx.restore();dirty=true;if(t<1)requestAnimationFrame(fl);else{mx.save();mx.scale(dpr,dpr);mx.fillRect(L.x-20,L.y-20,L.w+40,L.h+40);mx.restore();dirty=true}};fl();
+ document.getElementById('end').classList.add('on');document.getElementById('t1').innerHTML='There it is.';document.getElementById('t2').textContent='Every NOTA starts like this';
+ if(navigator.vibrate)try{navigator.vibrate([12,40,18])}catch(e){}}
+// pointer
+let down=false;
+cv.addEventListener('pointerdown',e=>{down=true;ghost=false;cv.setPointerCapture(e.pointerId);last=null;stroke(e.clientX,e.clientY,e.pressure||.5)});
+cv.addEventListener('pointermove',e=>{if(!down)return;(e.getCoalescedEvents?e.getCoalescedEvents():[e]).forEach(ev=>stroke(ev.clientX,ev.clientY,ev.pressure||.5));if(navigator.vibrate&&Math.random()<.02)try{navigator.vibrate(4)}catch(_){}});
+const up=()=>{down=false;last=null};cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
+// ghost brush shows the gesture once, then hands over
+async function ghostRun(){const pts=[];for(let i=0;i<=60;i++){const t=i/60;pts.push([L.x+L.w*(.08+.5*t),L.y+L.h*(.3+.25*Math.sin(t*5))])}
+ for(const [x,y] of pts){if(!ghost)break;stroke(x,y,.4);await new Promise(q=>setTimeout(q,16))}last=null}
+logo.onload=()=>{size();lg();document.querySelector('.mini img').style.opacity=1;requestAnimationFrame(render);if(!rm)setTimeout(()=>ghost&&ghostRun(),700);else{}};
+addEventListener('resize',()=>{size();lg()});
+window.__fill=()=>{for(let x=L.x;x<L.x+L.w;x+=18)for(let y=L.y;y<L.y+L.h;y+=18)dab(x,y,.5)};
+</script></body></html>
