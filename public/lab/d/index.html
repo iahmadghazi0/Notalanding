@@ -1,0 +1,93 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>NOTA prototype D: one word builds</title><link rel="stylesheet" href="../shared.css">
+<style>
+body{background:var(--paper)}
+.top{position:fixed;inset:0 0 auto 0;height:58px;display:flex;align-items:center;padding:0 18px;z-index:20;background:linear-gradient(var(--paper),rgba(251,251,249,0))}
+.top img{height:30px;width:auto}
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:84px 22px 60px;max-width:900px;margin:auto}
+.hero h1{font:400 clamp(38px,min(9vw,11svh),88px)/1 var(--serif)}.hero h1 em{color:var(--acc)}
+.hero p{margin:16px 0 22px;color:#55554f;font-size:clamp(17px,1.3vw,20px);max-width:28em}
+.field{border-bottom:3px solid var(--ink);position:relative;max-width:560px}
+.field input{width:100%;border:0;background:transparent;font:400 clamp(40px,10vw,76px)/1.1 var(--serif);padding:4px 0 8px;outline:none;caret-color:var(--acc)}
+.field input::placeholder{color:#c9c9c2}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}.chips button{font:500 16px var(--sans);min-height:44px;padding:0 18px;border-radius:99px;border:1.5px solid rgba(17,17,16,.25);background:#fff;cursor:pointer}
+.go{margin-top:22px}.go[disabled]{opacity:.35;pointer-events:none}
+.cue{margin-top:28px;display:flex;align-items:center;gap:10px}
+/* thread */
+#thread{position:relative;max-width:760px;margin:0 auto;padding:0 22px 40px 56px;visibility:hidden}
+#thread.on{visibility:visible}
+.rail{position:absolute;left:26px;top:0;bottom:0;width:3px;background:rgba(17,17,16,.1);border-radius:3px}
+.rail i{position:absolute;inset:0 0 auto 0;height:0;background:var(--acc);border-radius:3px}
+.step{position:relative;padding:34px 0 40px;opacity:.18;transform:translateY(22px);transition:opacity .7s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.step.in{opacity:1;transform:none}
+.step:before{content:"";position:absolute;left:-39px;top:42px;width:17px;height:17px;border-radius:50%;background:var(--paper);border:3px solid rgba(17,17,16,.2);transition:.5s}
+.step.in:before{background:var(--acc);border-color:var(--acc);box-shadow:0 0 0 7px rgba(14,107,69,.16)}
+.n{font:11px ui-monospace,monospace;letter-spacing:.14em;color:var(--acc);text-transform:uppercase}
+.step h2{font:400 clamp(30px,6.4vw,54px)/1.04 var(--serif);margin:8px 0 12px}.step h2 em{color:var(--acc)}
+.step p{color:#55554f;font-size:clamp(16px,1.2vw,19px);line-height:1.5;max-width:34em}
+.card{margin-top:16px;background:#fff;border:1px solid rgba(17,17,16,.12);border-radius:14px;padding:16px 18px;box-shadow:0 18px 40px -26px rgba(17,17,16,.4)}
+.card q{quotes:none;font:italic 400 clamp(19px,3.6vw,26px)/1.2 var(--serif);display:block}
+.wit{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.tagw{font:11px ui-monospace,monospace;letter-spacing:.08em;color:var(--acc);border:1px solid var(--acc);border-radius:99px;padding:3px 10px}
+.gap{display:flex;align-items:center;gap:14px;margin-top:18px}.gap b{flex:1;height:3px;background:repeating-linear-gradient(90deg,var(--ink) 0 8px,transparent 8px 14px)}
+.gap span{font:400 clamp(17px,3vw,22px) var(--serif);max-width:8em}
+.tbl{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:16px;border-radius:14px;overflow:hidden;border:1px solid rgba(17,17,16,.14)}
+.tbl div{padding:14px 16px;font-size:15px;line-height:1.35}.tbl .h{font:11px ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;background:#eee}
+.tbl .a{background:#fff;color:#6b6b64}.tbl .b{background:var(--acc);color:#fff}.tbl .h.b{background:#0a4d32}
+.pill3{display:grid;gap:12px;margin-top:16px}
+.pill3 div{background:#fff;border:1px solid rgba(17,17,16,.12);border-top:4px solid var(--acc);border-radius:12px;padding:14px 16px}
+.pill3 b{display:block;font:400 22px var(--serif)}.pill3 span{font-size:14px;color:#66665f}
+.drafts{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 2px 14px;margin-top:10px}
+.drafts div{flex:0 0 150px;scroll-snap-align:start;background:#f6f1e8;border-radius:10px;padding:12px;box-shadow:0 14px 30px -20px rgba(17,17,16,.5)}
+.drafts i{display:block;height:84px;border-radius:6px;margin-bottom:8px}
+.drafts b{font:400 17px var(--serif)}.drafts small{display:block;font:10px ui-monospace,monospace;color:#8a8478;margin-top:3px}
+.door{background:var(--acc);color:#fff;border-radius:22px;padding:28px 22px;margin:20px 0 0}
+.door h2{color:#fff}.door h2 em{color:var(--mint)}.door p{color:#e5f4ec}
+.door .cta{background:#fff;color:var(--ink);margin-top:12px}
+.fine{padding:26px 22px 70px;text-align:center}
+@media(min-width:900px){#thread{padding-left:90px}.rail{left:40px}.step:before{left:-62px}.pill3{grid-template-columns:repeat(3,1fr)}.tbl div{font-size:16px}}
+</style></head><body class="grid">
+<div class="top"><img src="../assets/nota-logo.png" alt="NOTA" width="560" height="317"></div>
+<section class="hero" id="hero">
+<span class="sample" style="align-self:flex-start;margin-bottom:16px">Sample, illustrative</span>
+<h1>One word in. <em>A reasoned plan out.</em></h1>
+<p>Every blueprint starts with a single word from the owner. Type yours and watch the chain it builds, in order.</p>
+<label class="field"><input id="w" maxlength="16" autocomplete="off" autocapitalize="words" placeholder="Bakery" aria-label="One word about your business"></label>
+<div class="chips" id="chips"><button>Bakery</button><button>Studio</button><button>Florist</button><button>Barbershop</button></div>
+<div class="go"><button class="cta go" id="go" disabled style="border:0;cursor:pointer;margin:0">Build it &darr;</button></div>
+</section>
+<main id="thread" aria-live="polite">
+<div class="rail"><i id="fill"></i></div>
+<section class="step"><div class="n">01 &middot; Your word</div><h2><em class="W">Word</em>.</h2><p>It is the first line of the blueprint, because it is the first thing you told us. Everything below grows from it.</p></section>
+<section class="step"><div class="n">02 &middot; The mirror</div><h2>What you and your guests already said.</h2><p>Your own words and your own reviews, each one with a place to check it.</p>
+<div class="card"><q id="q1">&ldquo;A hidden gem, worth the trip.&rdquo;</q><div class="wit"><span class="tagw">Witness: a guest review on your page</span><span class="sample">Sample</span></div></div></section>
+<section class="step"><div class="n">03 &middot; The paradox</div><h2>The <em class="W">word</em> paradox.</h2><p>One gap, named in your terms. Not a failure. The thing you built, sitting one step from the guest who wants it.</p>
+<div class="gap"><span>A <span class="w">word</span> guests love</span><b></b><span>behind a door they cannot find</span></div></section>
+<section class="step"><div class="n">04 &middot; The pivot</div><h2>From one line to another.</h2>
+<div class="tbl"><div class="h">Guest finds now</div><div class="h b">What we add</div><div class="a">&ldquo;Link in bio&rdquo; to reach the next one.</div><div class="b">A door on every page where guests already land.</div><div class="a">A list nobody is invited to join.</div><div class="b">A list with a reason to join.</div></div></section>
+<section class="step"><div class="n">05 &middot; Three pillars</div><h2>Three named things, in your ritual language.</h2>
+<div class="pill3"><div><b>What guests see</b><span>One item, one memory.</span></div><div><b>How guests take part</b><span>A card they can pass on.</span></div><div><b>Where a waiting guest goes</b><span>One list that answers &ldquo;tell me when&rdquo;.</span></div></div></section>
+<section class="step"><div class="n">06 &middot; First drafts</div><h2>Already begun, for you to keep or rewrite.</h2><p>Swipe. These are sample cards, drafted close to the owner&rsquo;s own captions.</p>
+<div class="drafts"><div><i style="background:#c9a77a"></i><b>Memory 1</b><small>SAMPLE DRAFT</small></div><div><i style="background:#0e6b45"></i><b>Memory 2</b><small>SAMPLE DRAFT</small></div><div><i style="background:#d9c9a8"></i><b>Memory 3</b><small>SAMPLE DRAFT</small></div><div><i style="background:#5fd0a0"></i><b>Memory 4</b><small>SAMPLE DRAFT</small></div><div><i style="background:#111110"></i><b>Memory 5</b><small>SAMPLE DRAFT</small></div></div></section>
+<section class="step"><div class="n">07 &middot; The next move</div><div class="door"><h2>One small door. <em>Your day, your time.</em></h2><p>Reply with one word. You choose when we talk. No form, no call booked for you.</p><a class="cta" href="mailto:iahmadghazii@gmail.com?subject=A%20word">Reply with your word &rarr;</a></div></section>
+</main>
+<p class="fine mono">Prototype &middot; sample content only</p>
+<script>
+const $=s=>document.querySelector(s),w=$('#w'),go=$('#go'),th=$('#thread'),reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1).toLowerCase();
+w.oninput=()=>go.disabled=!w.value.trim();
+document.querySelectorAll('#chips button').forEach(b=>b.onclick=()=>{w.value=b.textContent;go.disabled=false;build()});
+go.onclick=build;w.onkeydown=e=>{if(e.key==='Enter'&&w.value.trim())build()};
+let io;
+function build(){const v=w.value.trim();if(!v)return;
+ document.querySelectorAll('.W').forEach(e=>e.textContent=e.tagName==='EM'&&e.parentNode.tagName==='H2'&&e.parentNode.textContent.startsWith('The')?v.toLowerCase():cap(v));
+ document.querySelectorAll('.w').forEach(e=>e.textContent=v.toLowerCase());
+ th.classList.add('on');
+ setTimeout(()=>th.scrollIntoView({behavior:reduce?'auto':'smooth'}),50);
+ if(io)io.disconnect();
+ io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{rootMargin:'0px 0px -22% 0px'});
+ document.querySelectorAll('.step').forEach(s=>{s.classList.remove('in');io.observe(s)});
+ upd()}
+function upd(){if(!th.classList.contains('on'))return;const r=th.getBoundingClientRect(),vh=innerHeight,p=Math.max(0,Math.min(r.height,vh*.6-r.top));$('#fill').style.height=p+'px'}
+addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);
+if(reduce)document.addEventListener('DOMContentLoaded',()=>0);
+</script></body></html>
