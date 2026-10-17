@@ -1,0 +1,9 @@
+@font-face{font-family:Boska;src:url(assets/boska-400-normal-DeCDzAdg.woff2);font-style:normal;font-display:swap}
+@font-face{font-family:Boska;src:url(assets/boska-400-italic-Cf_xu1AB.woff2);font-style:italic;font-display:swap}
+@font-face{font-family:Bric;src:url(assets/bricolage-grotesque_vf_latest_latin-wght-normal-DLoelf7F.woff2);font-weight:200 800;font-display:swap}
+:root{--paper:#fbfbf9;--ink:#111110;--acc:#0e6b45;--mint:#5fd0a0;--serif:Boska,Georgia,serif;--sans:Bric,system-ui,sans-serif}
+*{box-sizing:border-box;margin:0}html{-webkit-text-size-adjust:100%}body{font-family:var(--sans);background:var(--paper);color:var(--ink);overflow-x:clip}
+img{display:block;max-width:100%}a{color:inherit}
+.tag{position:fixed;left:14px;bottom:12px;font:11px ui-monospace,Menlo,monospace;color:#8c8c85;z-index:9;letter-spacing:.04em;max-width:70vw}
+.mini{position:fixed;top:14px;left:16px;z-index:9}.mini img{height:30px;width:auto}
+.cta{display:inline-flex;align-items:center;min-height:48px;padding:0 24px;border-radius:99px;background:var(--ink);color:#fff;text-decoration:none;font:600 16px var(--sans)}
