@@ -13,9 +13,11 @@ const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.f
 links.forEach(a=>{const s=d.querySelector(a.getAttribute('href')!);s&&so.observe(s)})
 // story panels: the panel nearest the middle of the screen is active
 const panels=[...d.querySelectorAll<HTMLElement>('.panel')],steps=[...d.querySelectorAll<HTMLElement>('.steps li')]
-const po=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=+((e.target as HTMLElement).dataset.s||0);panels.forEach((p,k)=>p.classList.toggle('on',k===i));steps.forEach((s,k)=>s.classList.toggle('on',k===i))}}),{rootMargin:'-40% 0px -40% 0px'})
-panels.forEach(p=>po.observe(p))
-if(rm)panels.forEach(p=>p.classList.add('on'))
+const setS=(i:number)=>{panels.forEach((p,k)=>p.classList.toggle('on',k===i));steps.forEach((s,k)=>s.classList.toggle('on',k===i))}
+const wide=matchMedia('(min-width: 901px)');let tk=0
+const pick=()=>{tk=0;if(!wide.matches){panels.forEach(p=>p.classList.add('on'));return}const mid=innerHeight*.5;let b=0,bd=1e9;panels.forEach((p,k)=>{const r=p.getBoundingClientRect(),dd=Math.abs((r.top+r.bottom)/2-mid);if(dd<bd){bd=dd;b=k}});setS(b)}
+addEventListener('scroll',()=>{if(!tk)tk=requestAnimationFrame(pick)},{passive:true});addEventListener('resize',pick);pick()
+
 // notabuild tabs
 const t=d.querySelectorAll<HTMLElement>('.nbtabs button'),im=d.querySelectorAll('.nbstage img');let n=0,tm=0
 const go=(i:number)=>{n=i;t.forEach((b,k)=>{b.classList.toggle('on',k===i);b.setAttribute('aria-selected',String(k===i))});im.forEach((m,k)=>m.classList.toggle('on',k===i))}
@@ -43,3 +45,8 @@ const fo=new IntersectionObserver(es=>{es.forEach(e=>e.isIntersecting?vis.add(e.
     createHero3D(cv,{reduced,onReady:()=>root.classList.add('gl-on'),onFail:()=>root.classList.remove('gl-on')})
   }catch{ root.classList.remove('gl-on') }
 })()
+
+// nav follows the section under it: dark pill text on light sections, light on dark ones
+;(()=>{const nav=document.getElementById('nav')!,on=new Set<Element>()
+const o=new IntersectionObserver(es=>{es.forEach(e=>e.isIntersecting?on.add(e.target):on.delete(e.target));nav.classList.toggle('dk',on.size>0)},{rootMargin:'-40px 0px -calc(100% - 80px) 0px'.replace('-calc(100% - 80px)','-'+Math.max(0,innerHeight-80)+'px')})
+document.querySelectorAll('.story,.how,.final,.bp').forEach(el=>o.observe(el))})()
