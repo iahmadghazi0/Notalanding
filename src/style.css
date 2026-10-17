@@ -208,3 +208,4 @@ html{scroll-padding-top:92px}section[id],.story{scroll-margin-top:92px}
  .bp{margin-top:36px}
 }
 @media(max-width:900px){.hero .link{white-space:nowrap;font-size:15px}.hero .btn-lg{padding:0 18px;font-size:16px}}
+.final img{height:auto;aspect-ratio:560/317;width:clamp(150px,16vw,230px);margin:0 auto 18px}@media(max-width:900px){.final img{width:150px}}
