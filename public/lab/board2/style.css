@@ -1,0 +1,99 @@
+@font-face{font-family:'Caveat';font-weight:500;font-style:normal;font-display:swap;src:url(fonts/Caveat-500.woff2) format('woff2')}
+@font-face{font-family:'Caveat';font-weight:700;font-style:normal;font-display:swap;src:url(fonts/Caveat-700.woff2) format('woff2')}
+@font-face{font-family:'Geist Mono';font-weight:400;font-style:normal;font-display:swap;src:url(fonts/GeistMono-400.woff2) format('woff2')}
+@font-face{font-family:'Instrument Serif';font-weight:400;font-style:italic;font-display:swap;src:url(fonts/InstrumentSerif-400i.woff2) format('woff2')}
+@font-face{font-family:'Plus Jakarta Sans';font-weight:400;font-style:normal;font-display:swap;src:url(fonts/PlusJakartaSans-400.woff2) format('woff2')}
+@font-face{font-family:'Plus Jakarta Sans';font-weight:500;font-style:normal;font-display:swap;src:url(fonts/PlusJakartaSans-500.woff2) format('woff2')}
+@font-face{font-family:'Plus Jakarta Sans';font-weight:600;font-style:normal;font-display:swap;src:url(fonts/PlusJakartaSans-600.woff2) format('woff2')}
+@font-face{font-family:'Plus Jakarta Sans';font-weight:700;font-style:normal;font-display:swap;src:url(fonts/PlusJakartaSans-700.woff2) format('woff2')}
+@font-face{font-family:'Plus Jakarta Sans';font-weight:800;font-style:normal;font-display:swap;src:url(fonts/PlusJakartaSans-800.woff2) format('woff2')}:root{--deep:#0F3D2E;--ink:#08241b;--lime:#A7C957;--cream:#F7F6ED;--char:#1A1A1A;--mut:#a9bdb2;--ease:cubic-bezier(.2,.8,.2,1)}
+*{box-sizing:border-box;margin:0}html{scroll-behavior:auto}
+body{background:var(--ink);color:var(--cream);font:400 17px/1.6 'Plus Jakarta Sans',system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}a{color:inherit;text-decoration:none}
+.hand{font-family:'Caveat',cursive;font-weight:700;color:var(--lime)}
+.mono{font:400 12px 'Geist Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-weight:800;letter-spacing:-.03em;line-height:1.04}
+h2{font-size:clamp(34px,5.4vw,66px)}
+h2 em,h1 em{font-family:'Instrument Serif',serif;font-weight:400;font-style:italic;color:var(--lime);letter-spacing:-.01em}
+/* nav */
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:12px 24px;background:linear-gradient(#08241bee,#08241b00);backdrop-filter:blur(2px)}
+.nav img{height:34px;width:auto}
+.nav nav{display:flex;gap:26px;font-size:14px;font-weight:600}.nav nav a{opacity:.8}.nav nav a:hover{opacity:1;color:var(--lime)}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--lime);color:#0b2a1f;font-weight:800;padding:14px 24px;border-radius:999px;transition:transform .3s var(--ease),box-shadow .3s;box-shadow:0 8px 30px #a7c95733}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px #a7c95766}
+.btn.sm{padding:9px 16px;font-size:14px}
+/* hero */
+.hero{position:relative;min-height:100svh;display:grid;align-items:center;padding:110px 0 60px;background:radial-gradient(900px 600px at 80% 20%,#17573f 0%,transparent 60%),var(--ink)}
+.hero .wrap{max-width:1360px;display:grid;grid-template-columns:.9fr 1.25fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(40px,6.2vw,84px);margin:14px 0 20px}
+.hero p.lead{color:#cfe0d5;max-width:30em;margin-bottom:28px}
+.region{margin-top:22px}
+.wordbox{display:flex;gap:10px;flex-wrap:wrap;max-width:520px}
+.wordbox input{flex:1;min-width:180px;background:#ffffff10;border:1.5px solid #ffffff30;color:var(--cream);font:600 18px 'Plus Jakarta Sans';padding:14px 20px;border-radius:999px;outline:0}
+.wordbox input:focus{border-color:var(--lime)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.chips button{background:0;border:1px solid #ffffff30;color:var(--mut);padding:6px 14px;border-radius:99px;font:500 13px 'Plus Jakarta Sans';cursor:pointer}.chips button:hover{border-color:var(--lime);color:var(--lime)}
+.shot{position:relative;border-radius:22px;overflow:hidden;box-shadow:0 40px 90px #000a,0 0 0 1px #ffffff14;aspect-ratio:16/9;transform:perspective(1400px) rotateY(-5deg) rotateX(2deg);transition:transform .2s}
+.shot img{width:100%;height:100%;object-fit:cover;transform:scale(1.06)}
+.shot::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,#ffffff2e 50%,transparent 65%);background-size:250% 100%;background-position:150% 0;animation:sweep 6s var(--ease) infinite}
+@keyframes sweep{0%,55%{background-position:150% 0}100%{background-position:-60% 0}}
+.hand.u{display:block;font-size:26px;margin-top:-6px;transform:rotate(-2deg)}
+/* generic section */
+section{position:relative;padding:clamp(56px,8vw,110px) 0}
+.sec-head{max-width:760px;margin-bottom:46px}.sec-head p{color:#cfe0d5;margin-top:16px;max-width:36em}
+/* plan sheet */
+.plan{background:var(--cream);color:var(--char);border-radius:22px;padding:clamp(22px,4vw,44px);box-shadow:0 40px 90px #0008;position:relative}
+.plan::before{content:"";position:absolute;inset:0;border-radius:22px;background:repeating-linear-gradient(transparent 0 31px,#0f3d2e12 31px 32px);pointer-events:none}
+.plan h3{font-size:clamp(26px,3.6vw,44px);color:var(--deep);margin:8px 0 14px;position:relative}
+.plan .mono{color:#6b7f74}.plan p{color:#33443b;max-width:40em;position:relative}
+.plan .hl{background:linear-gradient(transparent 60%,#a7c957aa 60%);padding:0 3px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;position:relative}
+.tabs button{border:1.5px solid #0f3d2e33;background:0;color:var(--deep);font:700 13px 'Plus Jakarta Sans';padding:8px 15px;border-radius:99px;cursor:pointer}
+.tabs button.on{background:var(--deep);color:var(--cream);border-color:var(--deep)}
+.quote{margin-top:22px;background:var(--deep);color:var(--cream);padding:20px 24px;border-radius:14px;position:relative}
+.quote .hand{font-size:28px}
+/* how */
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:linear-gradient(160deg,#124a37,#0c2e23);border:1px solid #ffffff14;border-radius:20px;padding:30px;position:relative;overflow:hidden}
+.card .n{font:800 56px 'Plus Jakarta Sans';color:#a7c95733;position:absolute;right:20px;top:6px}
+.card h3{font-size:28px;margin-bottom:10px}.card p{color:#cfe0d5}
+.rules{margin-top:36px;display:grid;gap:10px;color:#cfe0d5}.rules b{color:var(--cream)}
+/* products */
+.prod{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:stretch}
+.nb{background:#f1efe4;color:var(--char);border-radius:24px;padding:clamp(24px,3.5vw,44px)}
+.nb h3{font-size:clamp(28px,3.4vw,44px);color:var(--deep)}.nb h3 span{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400}
+.nb p{color:#41524a;margin:12px 0}
+.tpl{position:relative;aspect-ratio:1400/875;border-radius:14px;overflow:hidden;margin:20px 0;box-shadow:0 20px 50px #0003}
+.tpl img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s}.tpl img.on{opacity:1}
+.feat{display:grid;gap:10px;margin:18px 0}.feat div{border-top:1px solid #0f3d2e22;padding-top:10px}.feat b{display:block;color:var(--deep)}
+.bpcard{background:linear-gradient(165deg,#0f5a3f,#0a3a2b);border-radius:24px;padding:clamp(24px,3.5vw,44px);display:flex;flex-direction:column;position:relative;overflow:hidden;border:1px solid #a7c95744}
+.bpcard h3{font-size:clamp(30px,3.6vw,48px)}.bpcard ul{list-style:none;padding:0;margin:18px 0 26px;display:grid;gap:8px}.bpcard li::before{content:"→ ";color:var(--lime)}
+.bpcard .art{margin-top:auto;display:flex;gap:10px}.bpcard .art img{width:33%;border-radius:8px;box-shadow:0 14px 30px #0006}
+.bpcard .btn{align-self:flex-start;margin-bottom:22px}
+/* about */
+.about{display:grid;grid-template-columns:1fr;gap:30px}.about p.big{font-size:clamp(20px,2.3vw,28px);line-height:1.45;max-width:28em}
+.portrait{display:none}
+/* cta */
+.cta{text-align:center;background:radial-gradient(700px 400px at 50% 100%,#1c6a4c,transparent 70%)}
+.cta h2{font-size:clamp(48px,9vw,130px)}
+footer{padding:30px 0 80px;color:var(--mut);font-size:14px}footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.float{position:fixed;right:18px;bottom:18px;z-index:60}
+.rv{opacity:0;transform:translateY(30px)}
+.arrow-svg{width:130px;position:absolute;right:6%;top:-26px;opacity:.9}
+@media(max-width:860px){.hero .wrap,.prod{grid-template-columns:1fr}.how{grid-template-columns:1fr}.nav nav a:not(.keep){display:none}.shot{transform:none}.hero{padding-top:90px}}
+@media(prefers-reduced-motion:reduce){.shot::after{animation:none}.rv{opacity:1;transform:none}.shot{transform:none}*{transition:none!important}}
+
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:70;opacity:.07;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");mix-blend-mode:overlay}
+.ul{width:min(340px,70%);display:block;margin:-6px 0 0 4px}
+.hand.u{margin-top:2px}
+.path{padding:26px 0 10px}.pathrow{position:relative;display:flex;justify-content:space-between;align-items:center;font-size:clamp(26px,4.4vw,52px);padding:18px 0 54px}
+.pathrow .hand{color:var(--cream)}.pathrow .hand.g{color:var(--lime)}.pathrow i{flex:1;height:1px;background:#ffffff22;margin:0 14px}
+.pa{position:absolute;left:0;right:0;bottom:0;width:100%;height:46px}
+.bigicon{width:min(300px,60%);filter:drop-shadow(0 30px 40px #000a);animation:fl 7s ease-in-out infinite;justify-self:start}
+@keyframes fl{50%{transform:translateY(-10px) rotate(-2deg)}}
+@media(min-width:861px){.about{grid-template-columns:1.3fr .7fr;align-items:center}.about>*:not(.bigicon){grid-column:1}.bigicon{grid-column:2;grid-row:1/4;justify-self:center}}
+@media(max-width:860px){.pathrow i{display:none}.pathrow{flex-wrap:wrap;gap:8px 20px;justify-content:center}}
+@media(prefers-reduced-motion:reduce){.bigicon{animation:none}}
+
+.float{transition:opacity .3s,transform .3s}.float.off{opacity:0;pointer-events:none;transform:translateY(12px)}
+@media(max-width:860px){.nav .btn{display:none}}
