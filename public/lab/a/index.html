@@ -1,0 +1,82 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>NOTA prototype A: your word</title><link rel="stylesheet" href="../shared.css">
+<style>
+body{min-height:100svh;background:var(--paper);background-image:linear-gradient(rgba(17,17,16,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(17,17,16,.045) 1px,transparent 1px);background-size:48px 48px}
+main{min-height:100svh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(24px,5vw,80px);max-width:1360px;margin:auto;padding:84px clamp(20px,4vw,56px) 56px}
+h1{font:400 clamp(40px,min(6vw,11svh),96px)/1 var(--serif);letter-spacing:-.01em}h1 em{color:var(--acc)}
+.lead{margin:16px 0 26px;font-size:clamp(17px,1.4vw,21px);color:#55554f;max-width:28em}
+.field{position:relative;border-bottom:3px solid var(--ink);max-width:560px}
+.field input{width:100%;border:0;background:transparent;font:400 clamp(36px,6vw,72px)/1.1 var(--serif);padding:6px 0 10px;outline:none;color:var(--ink);caret-color:var(--acc)}
+.field input::placeholder{color:#c9c9c2}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.chips button{font:500 16px var(--sans);min-height:44px;padding:0 18px;border-radius:99px;border:1.5px solid rgba(17,17,16,.25);background:#fff;cursor:pointer}.chips button:hover{border-color:var(--acc);color:var(--acc)}
+.hint{margin-top:22px;font:12px ui-monospace,monospace;color:#8c8c85;letter-spacing:.06em}
+.stage{display:grid;place-items:center;perspective:1400px}
+.sheet{--h:150;--hue:150;position:relative;width:min(100%,430px);aspect-ratio:910/1287;background:#f6f1e8;border-radius:10px;box-shadow:0 40px 90px -30px rgba(17,17,16,.5);padding:7% 8%;display:flex;flex-direction:column;gap:3.2%;transform:rotateY(-6deg) rotateX(3deg);transition:transform .8s cubic-bezier(.2,.8,.2,1);overflow:hidden}
+.sheet:hover{transform:rotateY(2deg) rotateX(0)}
+.sheet>*{opacity:0;transform:translateY(18px) scale(.97);transition:opacity .6s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.sheet.go>*{opacity:1;transform:none}
+.sheet.go>*:nth-child(1){transition-delay:.0s}.sheet.go>*:nth-child(2){transition-delay:.15s}.sheet.go>*:nth-child(3){transition-delay:.3s}.sheet.go>*:nth-child(4){transition-delay:.5s}.sheet.go>*:nth-child(5){transition-delay:.7s}.sheet.go>*:nth-child(6){transition-delay:.9s}
+.band{background:var(--bg);color:#fff;border-radius:6px;padding:6% 7%;display:flex;flex-direction:column;gap:6px}
+.band img{height:clamp(24px,2.4vw,34px);width:auto;align-self:flex-start;filter:brightness(0) invert(1)}
+.band h2{font:400 clamp(20px,2.4vw,30px)/1.05 var(--serif);word-break:break-word}.band h2 em{color:var(--lite)}
+.band small{font:9px ui-monospace,monospace;letter-spacing:.14em;opacity:.7;text-transform:uppercase}
+.lbl{font:9px ui-monospace,monospace;letter-spacing:.14em;color:#8a8478;text-transform:uppercase}
+.sheet h3{font:400 clamp(17px,1.9vw,23px)/1.1 var(--serif)}
+.quote{background:var(--acc);color:#fff;border-radius:6px;padding:5% 6%;font:italic 400 clamp(14px,1.5vw,18px)/1.2 var(--serif)}
+.pil{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.pil div{border-top:2px solid var(--acc);padding-top:6px;font-size:clamp(10px,1vw,12px);line-height:1.25}.pil b{display:block;font:400 clamp(13px,1.3vw,16px) var(--serif);margin-bottom:2px}
+.pal{display:flex;gap:7px}.pal i{width:clamp(22px,2.6vw,32px);aspect-ratio:1;border-radius:50%;transform:scale(0);transition:transform .5s cubic-bezier(.3,1.6,.5,1)}.sheet.go .pal i{transform:scale(1)}.sheet.go .pal i:nth-child(2){transition-delay:1.1s}.sheet.go .pal i:nth-child(3){transition-delay:1.2s}.sheet.go .pal i:nth-child(4){transition-delay:1.3s}.sheet.go .pal i{transition-delay:1s}
+.foot{margin-top:auto;font:9px ui-monospace,monospace;color:#8a8478;display:flex;justify-content:space-between}
+.underline{height:6px;width:60%;background:var(--acc);border-radius:99px;transform-origin:left;transform:scaleX(0);transition:transform .9s .4s cubic-bezier(.2,.8,.2,1)}.sheet.go .underline{transform:scaleX(1)}
+.cta-row{margin-top:26px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;min-height:48px}
+@media(max-width:860px){main{grid-template-columns:1fr;padding-top:62px;gap:18px}.stage{order:-1}.sheet{transform:none;width:min(72%,300px);aspect-ratio:auto;padding:16px;gap:10px}.lead{display:none}.pil div{font-size:0}.pil b{font-size:12px;line-height:1.1}h1{font-size:clamp(38px,11vw,56px)}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<a class="mini" href="#"><img src="../assets/nota-logo.png" alt="NOTA" width="560" height="317"></a>
+<main>
+<section>
+<h1>Say one word <em>about your business.</em></h1>
+<p class="lead">Watch a blueprint page start to build itself around it.</p>
+<label class="field"><span class="lbl" style="position:absolute;left:-9999px">One word about your business</span><input id="w" autocomplete="off" autocapitalize="words" maxlength="18" placeholder="Bakery" aria-label="One word about your business"></label>
+<div class="chips" id="chips"><button>Bakery</button><button>Studio</button><button>Barbershop</button><button>Florist</button><button>Tea house</button></div>
+<div class="cta-row"><a class="cta" id="cta" href="mailto:iahmadghazii@gmail.com?subject=Blueprint" hidden>Reply "Blueprint" &rarr;</a></div>
+<p class="hint">Illustrative sample. Generated on this page from your word, not a real client and not stored.</p>
+</section>
+<section class="stage"><article class="sheet" id="sheet" aria-live="polite" style="--bg:#10231c;--lite:#5fd0a0">
+<div class="band"><img src="../assets/nota-logo.png" alt="" width="560" height="317"><small>Strategic blueprint, sample</small><h2 id="t">Your word, <em>made visible.</em></h2></div>
+<div class="underline"></div>
+<div><p class="lbl">Pillars, sample</p><div class="pil" id="pil"></div></div>
+<div class="quote" id="q"></div>
+<div><p class="lbl">Palette, sample</p><div class="pal" id="pal"></div></div>
+<div class="foot"><span>Design study</span><span>Illustrative copy</span></div>
+</article></section>
+</main>
+<p class="tag">NOTA prototype A. Illustrative only.</p>
+<script>
+const $=s=>document.querySelector(s),w=$('#w'),sh=$('#sheet');
+const P=[["Made by hand","Nothing here is mass made."],["Known by name","Remembered, not recorded."],["Never rushed","Time is part of the craft."],["Open door","One clear way back in."],["Plain spoken","Say it once, say it well."],["Rooted","Of this place, for these people."],["Small and exact","Every detail was chosen."],["Worth the wait","The slow part is the good part."]];
+function hash(s){let h=2166136261;for(const c of s.toLowerCase()){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
+function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
+let to;
+function build(){
+  const v=w.value.trim();
+  if(!v){sh.classList.remove('go');$('#cta').hidden=true;return}
+  const h=hash(v),hue=(h%140)+90, hue2=(hue+28)%360; // greens through teals, ink-led, no reds
+  const a=`hsl(${hue} 55% 14%)`,b=`hsl(${hue} 60% 62%)`;
+  sh.style.setProperty('--bg',a);sh.style.setProperty('--lite',b);
+  $('#t').innerHTML=`The ${cap(v)}, <em>made visible.</em>`;
+  const idx=[h%8,(h>>>3)%8,(h>>>6)%8];const set=[...new Set(idx)];while(set.length<3)set.push((set[set.length-1]+3)%8);
+  $('#pil').innerHTML=set.slice(0,3).map(i=>`<div><b>${P[i][0]}</b>${P[i][1]}</div>`).join('');
+  $('#q').textContent=`\u201CA good ${v.toLowerCase()} should never feel like a template.\u201D`;
+  $('#pal').innerHTML=[a,`hsl(${hue} 50% 32%)`,b,'#f6f1e8'].map(c=>`<i style="background:${c};border:1px solid rgba(17,17,16,.15)"></i>`).join('');
+  $('.underline').style.background=`hsl(${hue} 60% 30%)`;
+  sh.classList.remove('go');void sh.offsetWidth;sh.classList.add('go');
+  const c=$('#cta');c.hidden=false;c.href='mailto:iahmadghazii@gmail.com?subject='+encodeURIComponent('Blueprint: '+v);
+  if(navigator.vibrate)try{navigator.vibrate(8)}catch(e){}
+}
+w.addEventListener('input',()=>{clearTimeout(to);to=setTimeout(build,260)});
+$('#chips').addEventListener('click',e=>{if(e.target.tagName==='BUTTON'){w.value=e.target.textContent;build()}});
+// pointer tilt on desktop
+if(matchMedia('(hover:hover)').matches)addEventListener('pointermove',e=>{sh.style.transform=`rotateY(${(e.clientX/innerWidth-.5)*-10}deg) rotateX(${(e.clientY/innerHeight-.5)*8}deg)`});
+// idle demo: type a sample word so the first 5 seconds already show the trick
+let demo=true;w.addEventListener('focus',()=>demo=false);addEventListener('pointerdown',()=>demo=false,{once:true});
+(async()=>{await new Promise(r=>setTimeout(r,900));const word='Bakery';for(let i=1;i<=word.length&&demo;i++){w.value=word.slice(0,i);await new Promise(r=>setTimeout(r,140))}if(demo){build()}})();
+</script></body></html>
