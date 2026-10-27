@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en"><head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Angel Touch Kitchen | Halal Indonesian, Plano (fictional homepage concept)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400;1,9..144,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16100c;--ink2:#201812;--cream:#f5ecdd;--cream2:#e9dcc6;--turmeric:#e9a216;--sambal:#c2331f;--leaf:#33502b;--mute:#b9a98f}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--cream);font-family:'Instrument Sans',system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+h1,h2,h3,.serif{font-family:'Fraunces',Georgia,serif;font-weight:600;letter-spacing:-.02em}
+.wrap{padding:0 22px;max-width:1180px;margin:0 auto}
+a{color:inherit}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 24px;border-radius:999px;font-weight:600;text-decoration:none;font-size:15px}
+.btn.p{background:var(--turmeric);color:var(--ink)}
+.btn.g{border:1px solid rgba(245,236,221,.35);color:var(--cream)}
+.tag{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--turmeric);font-weight:600}
+/* top bar */
+.ribbon{background:var(--turmeric);color:var(--ink);font-size:12.5px;text-align:center;padding:8px 14px;font-weight:600;letter-spacing:.02em}
+header{position:sticky;top:0;z-index:20;background:rgba(22,16,12,.88);backdrop-filter:blur(10px);border-bottom:1px solid rgba(245,236,221,.08)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+.logo{font-family:'Fraunces',serif;font-weight:800;font-size:19px;letter-spacing:-.01em}
+.logo i{color:var(--turmeric);font-style:normal}
+nav{display:none;gap:28px;font-size:14px;color:var(--mute)}
+nav a{text-decoration:none}
+header .btn{padding:10px 18px;font-size:14px}
+/* hero */
+.hero{position:relative;padding:34px 0 0;overflow:hidden}
+.hero .wrap{display:grid;gap:30px}
+.hero h1{font-size:clamp(46px,13.2vw,112px);line-height:.95;font-weight:800}
+.hero h1 em{font-style:italic;font-weight:400;color:var(--turmeric)}
+.hero p.lede{font-size:18px;color:var(--cream2);max-width:30em;margin-top:18px}
+.hero .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:22px;font-size:13.5px;color:var(--mute)}
+.hero .meta b{color:var(--cream);font-weight:600}
+.plate{position:relative;border-radius:28px;overflow:hidden;aspect-ratio:4/5;margin:0 -2px}
+.plate img{width:100%;height:100%;object-fit:cover}
+.plate .chip{position:absolute;left:14px;bottom:14px;background:rgba(22,16,12,.78);backdrop-filter:blur(8px);padding:10px 14px;border-radius:14px;font-size:13px;max-width:80%}
+.plate .chip b{display:block;font-family:'Fraunces',serif;font-size:17px;font-weight:600}
+.stamp{position:absolute;right:14px;top:14px;width:92px;height:92px;border-radius:50%;background:var(--sambal);display:grid;place-items:center;text-align:center;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;line-height:1.25;transform:rotate(10deg)}
+.stamp b{display:block;font-family:'Fraunces',serif;font-size:26px;letter-spacing:0}
+/* journey */
+.journey{padding:84px 0 30px}
+.journey h2{font-size:clamp(34px,9vw,64px);line-height:1;max-width:14em}
+.journey .sub{color:var(--cream2);max-width:34em;margin-top:16px}
+.rail{margin-top:42px;position:relative;padding-left:26px;border-left:2px dashed rgba(233,162,22,.5);display:grid;gap:30px}
+.stop{position:relative}
+.stop:before{content:"";position:absolute;left:-35px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--ink);border:3px solid var(--turmeric)}
+.stop.now:before{background:var(--sambal);border-color:var(--sambal);box-shadow:0 0 0 6px rgba(194,51,31,.25)}
+.stop .yr{font-family:'Fraunces',serif;font-size:34px;font-weight:800;color:var(--turmeric);line-height:1}
+.stop h3{font-size:20px;margin-top:6px}
+.stop p{color:var(--cream2);font-size:15px;margin-top:4px;max-width:30em}
+/* yenni */
+.yenni{margin-top:70px;background:var(--cream);color:var(--ink);padding:64px 0}
+.yenni .wrap{display:grid;gap:28px}
+.yenni blockquote{font-family:'Fraunces',serif;font-size:clamp(28px,7.4vw,54px);line-height:1.08;font-weight:600;letter-spacing:-.02em}
+.yenni blockquote em{color:var(--sambal);font-style:italic;font-weight:400}
+.yenni .who{font-size:14px;color:#5b4c3a}
+.yenni .who b{color:var(--ink)}
+.yenni .copy p{margin-top:12px;color:#3a2e22;max-width:34em}
+.yenni .src{font-size:12px;color:#7a6a55;margin-top:14px}
+/* menu */
+.menu{padding:84px 0 20px}
+.menu h2{font-size:clamp(34px,9vw,64px);line-height:1}
+.menu .sub{color:var(--cream2);margin-top:14px;max-width:32em}
+.dishes{display:grid;gap:18px;margin-top:36px}
+.dish{background:var(--ink2);border-radius:26px;overflow:hidden;border:1px solid rgba(245,236,221,.07)}
+.dish .ph{aspect-ratio:4/3;overflow:hidden}
+.dish .ph img{width:100%;height:100%;object-fit:cover}
+.dish .tx{padding:20px 22px 24px}
+.dish .tg{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--turmeric);font-weight:600}
+.dish h3{font-size:25px;margin-top:6px}
+.dish p{color:var(--cream2);font-size:15px;margin-top:8px}
+.minis{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.mini{border:1px solid rgba(245,236,221,.12);border-radius:20px;padding:16px}
+.mini b{font-family:'Fraunces',serif;font-size:17px;display:block}
+.mini span{font-size:13px;color:var(--mute)}
+/* lanes */
+.lanes{padding:84px 0 20px}
+.lanes h2{font-size:clamp(34px,9vw,64px);line-height:1}
+.lane-grid{display:grid;gap:14px;margin-top:34px}
+.lane{border-radius:26px;padding:26px 24px;display:flex;flex-direction:column;gap:10px}
+.lane.a{background:var(--sambal)}
+.lane.b{background:var(--leaf)}
+.lane.c{background:var(--cream);color:var(--ink)}
+.lane h3{font-size:28px}
+.lane p{font-size:15px;opacity:.92}
+.lane .k{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;opacity:.8}
+.lane .go{margin-top:8px;font-weight:600;text-decoration:none;border-bottom:2px solid currentColor;align-self:flex-start;padding-bottom:2px}
+/* bento builder */
+.builder{margin-top:34px;background:var(--ink2);border:1px solid rgba(245,236,221,.1);border-radius:28px;padding:26px 22px}
+.builder h3{font-size:26px}
+.builder .sub{color:var(--mute);font-size:14px;margin-top:6px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.opt{border:1px solid rgba(245,236,221,.2);background:transparent;color:var(--cream);border-radius:18px;padding:14px;text-align:left;font:inherit;cursor:pointer}
+.opt b{display:block;font-family:'Fraunces',serif;font-size:18px}
+.opt span{font-size:12.5px;color:var(--mute)}
+.opt.on{background:var(--turmeric);color:var(--ink);border-color:var(--turmeric)}
+.opt.on span{color:#4b3508}
+.out{margin-top:18px;padding:16px 18px;border-radius:18px;background:rgba(233,162,22,.12);font-size:14.5px;color:var(--cream)}
+.out small{display:block;color:var(--mute);margin-top:6px}
+/* visit */
+.visit{padding:84px 0 70px}
+.visit .card{background:var(--cream);color:var(--ink);border-radius:30px;padding:34px 26px;display:grid;gap:22px}
+.visit h2{font-size:clamp(32px,8.5vw,56px);line-height:1}
+.visit .row{display:grid;gap:3px}
+.visit .row span{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#7a6a55;font-weight:600}
+.visit .row b{overflow-wrap:anywhere;font-family:'Fraunces',serif;font-size:21px;font-weight:600}
+.halal{display:inline-flex;gap:10px;align-items:center;background:var(--leaf);color:var(--cream);padding:10px 16px;border-radius:999px;font-size:13.5px;font-weight:600;align-self:start}
+footer{border-top:1px solid rgba(245,236,221,.1);padding:34px 0 60px;color:var(--mute);font-size:13px}
+footer .fict{margin-top:14px;padding:14px 16px;border:1px dashed rgba(233,162,22,.6);border-radius:14px;color:var(--turmeric);line-height:1.5}
+@media(min-width:860px){
+ .wrap{padding:0 44px}
+ nav{display:flex}
+ .hero{padding-top:56px}
+ .hero .wrap{grid-template-columns:1.15fr .85fr;align-items:center;gap:56px}
+ .hero h1{font-size:clamp(70px,8vw,124px)}
+ .plate{aspect-ratio:4/5.2}
+ .rail{display:grid;grid-template-columns:repeat(4,1fr);border-left:0;padding-left:0;border-top:2px dashed rgba(233,162,22,.5);padding-top:34px;gap:26px}
+ .stop:before{left:0;top:-43px}
+ .yenni .wrap{grid-template-columns:1.2fr .8fr;gap:64px;align-items:end}
+ .dishes{grid-template-columns:1.2fr 1fr;grid-auto-rows:auto}
+ .dish.big{grid-row:span 2}
+ .dish.big{display:flex;flex-direction:column}
+ .dish.big .ph{flex:1;aspect-ratio:auto;min-height:420px}
+ .minis{grid-template-columns:repeat(4,1fr)}
+ .lane-grid{grid-template-columns:repeat(3,1fr)}
+ .visit .card{grid-template-columns:1.1fr 1fr 1fr;padding:50px}
+}
+</style></head><body>
+<div class="ribbon">Soft opening ran Oct 22 to 25 · Now serving at 280 Legacy Drive, Plano</div>
+<header><div class="wrap"><div class="logo">Angel Touch <i>Kitchen</i></div><nav><a href="#story">Our road</a><a href="#menu">Menu</a><a href="#order">Dine · Cater · Truck</a><a href="#visit">Visit</a></nav><a class="btn p" href="#visit">Find us</a></div></header>
+
+<section class="hero"><div class="wrap">
+ <div>
+  <div class="tag">Halal Indonesian · Plano, Texas</div>
+  <h1 style="margin-top:14px">Ten years on wheels. <em>Now a door.</em></h1>
+  <p class="lede">Yenni Haryanti cooked for neighbors, schools and festivals for a decade. On Legacy Drive, her beef rendang finally has a table to land on.</p>
+  <div class="cta"><a class="btn p" href="#menu">See what's cooking</a><a class="btn g" href="#visit">Directions</a></div>
+  <div class="meta"><span><b>2014</b> first plates</span><span><b>DFW</b> schools, festivals, offices</span><span><b>Halal</b> proteins</span></div>
+ </div>
+ <figure class="plate"><img data-i="atk_rendang.jpg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Slow-cooked beef rendang on a banana leaf with jasmine rice (AI-generated illustration)">
+  <div class="stamp"><div><b>No.1</b>seller</div></div>
+  <figcaption class="chip"><b>Beef rendang</b>Slow-cooked in coconut milk and spice</figcaption></figure>
+</div></section>
+
+<section class="journey" id="story"><div class="wrap">
+ <div class="tag">Our road</div>
+ <h2 style="margin-top:12px">We never stopped cooking. We just kept the kitchen moving.</h2>
+ <p class="sub">When the Carrollton food court spot ended, the family took the food to the people. This is the road back to a table of our own.</p>
+ <div class="rail">
+  <div class="stop"><div class="yr">2014</div><h3>A side hustle</h3><p>Catering and community events, one Indonesian dish at a time.</p></div>
+  <div class="stop"><div class="yr">2021</div><h3>Carrollton</h3><p>A first home inside a food court, with regulars who followed.</p></div>
+  <div class="stop"><div class="yr">2022+</div><h3>The mobile years</h3><p>Truck, festivals, offices and school kitchens feeding hundreds.</p></div>
+  <div class="stop now"><div class="yr">Oct 2026</div><h3>Legacy Drive</h3><p>Our own restaurant in Plano. Same recipes, a door that stays open.</p></div>
+ </div>
+</div>
+<div class="yenni"><div class="wrap">
+ <div><blockquote>Sometimes you have to take a <em>different road</em> to get back to it.</blockquote></div>
+ <div class="copy"><div class="who"><b>Yenni Haryanti</b><br>Founder and chef</div>
+  <p>A pivot does not always mean giving up on your original dream. Yenni still cooks, develops the recipes and serves customers herself, and remembers names and favorite dishes.</p>
+  <div class="src">Quote from Yenni Haryanti's September 2026 CanvasRebel interview.</div></div>
+</div></div></section>
+
+<section class="menu" id="menu"><div class="wrap">
+ <div class="tag">The menu</div>
+ <h2 style="margin-top:12px">Sweet, savory, spicy, aromatic, comforting.</h2>
+ <p class="sub">Indonesian food made from scratch, easy for a first-timer and true for everyone else.</p>
+ <div class="dishes">
+  <article class="dish big"><div class="ph"><img data-i="atk_rendang2.jpg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Beef rendang (AI-generated illustration)"></div><div class="tx"><div class="tg">Best seller</div><h3>Rendang Daging</h3><p>Beef braised for hours in coconut milk, lemongrass and a traditional spice blend, with steamed jasmine rice.</p></div></article>
+  <article class="dish"><div class="ph"><img data-i="atk_sate.jpg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Chicken satay (AI-generated illustration)"></div><div class="tx"><div class="tg">From the grill</div><h3>Sate Ayam</h3><p>Chicken skewers served with peanut sauce.</p></div></article>
+  <article class="dish"><div class="ph"><img data-i="atk_bubur.jpg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Bubur ayam (AI-generated illustration)"></div><div class="tx"><div class="tg">Soft-opening favorite</div><h3>Bubur Ayam</h3><p>Warm Indonesian chicken porridge, the comfort bowl.</p></div></article>
+ </div>
+ <div class="minis"><div class="mini"><b>Nasi goreng</b><span>Fried rice</span></div><div class="mini"><b>Mie goreng</b><span>Stir-fried noodles</span></div><div class="mini"><b>Risoles</b><span>Chicken, carrot and pea, breaded</span></div><div class="mini"><b>Lemper</b><span>Sticky rice, spiced chicken</span></div></div>
+</div></section>
+
+<section class="lanes" id="order"><div class="wrap">
+ <div class="tag">Three ways to eat with us</div>
+ <h2 style="margin-top:12px">Table, tray or truck.</h2>
+ <div class="lane-grid">
+  <div class="lane a"><div class="k">Dine in</div><h3>Legacy Drive</h3><p>280 Legacy Dr. #300, Plano. Rendang, noodles, skewers and the daily specials.</p><a class="go" href="#visit">Hours and directions</a></div>
+  <div class="lane b"><div class="k">Catering</div><h3>Bento and feasts</h3><p>Build-your-own bento boxes for offices, weddings and baby showers. Minimum 20.</p><a class="go" href="#bento">Build a box</a></div>
+  <div class="lane c"><div class="k">Find the truck</div><h3>Next stop</h3><p>Carrollton Switchyard, Nov 7. Historic Downtown Carrollton, 1100 Elm St.</p><a class="go" href="#visit">Follow our stops</a></div>
+ </div>
+ <div class="builder" id="bento">
+  <img data-i="atk_nasikuning.jpg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Nasi kuning feast platter (AI-generated illustration)" style="border-radius:20px;aspect-ratio:16/10;object-fit:cover;width:100%;margin-bottom:20px"><h3>Plan your bento catering</h3><div class="sub">Pick a box. See what goes in it. We confirm by text.</div>
+  <div class="opts" id="opts">
+   <button class="opt on" data-s="1" data-e="1"><b>Box 1</b><span>1 side · 1 entree</span></button>
+   <button class="opt" data-s="2" data-e="1"><b>Box 2</b><span>2 sides · 1 entree</span></button>
+   <button class="opt" data-s="3" data-e="1"><b>Box 3</b><span>3 sides · 1 entree</span></button>
+   <button class="opt" data-s="3" data-e="2"><b>Box 4</b><span>3 sides · 2 entrees</span></button>
+  </div>
+  <div class="out" id="out"></div>
+ </div>
+</div></section>
+
+<section class="visit" id="visit"><div class="wrap"><div class="card">
+ <div><div class="tag" style="color:var(--sambal)">Visit</div><h2 style="margin-top:10px">Come hungry.<br>Come as you are.</h2><div class="halal" style="margin-top:20px">Halal proteins</div></div>
+ <div style="display:grid;gap:18px">
+  <div class="row"><span>Address</span><b>280 Legacy Dr. #300<br>Plano, TX 75023</b></div>
+  <div class="row"><span>Phone</span><b>405-655-8235</b></div>
+ </div>
+ <div style="display:grid;gap:18px">
+  <div class="row"><span>Hours</span><b>Open hours, always<br>current on this page</b></div>
+  <div class="row"><span>Catering requests</span><b style="font-size:17px">angeltouchkitchen<wbr>@gmail.com</b></div>
+ </div>
+</div></div></section>
+
+<footer><div class="wrap">
+ <div class="serif" style="font-size:18px;color:var(--cream)">Angel Touch Kitchen</div>
+ <p style="margin-top:6px">Thank you for letting our family serve you.</p>
+ <div class="fict">Fictional homepage concept. prepared by NOTA. Not published, not the live site, not affiliated with Angel Touch Kitchen. Food images are AI-generated illustrations. Story facts come from Community Impact, Plano Magazine and CanvasRebel coverage.</div>
+</div></footer>
+<script>
+const o=document.getElementById('out');
+function show(b){document.querySelectorAll('.opt').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+ o.innerHTML='Box with <b>'+b.dataset.s+' side'+(b.dataset.s>1?'s':'')+'</b> and <b>'+b.dataset.e+' entree'+(b.dataset.e>1?'s':'')+'</b>, served with steamed jasmine rice. Minimum 20 orders.<small>Pricing, deposit and delivery terms come from Angel Touch Kitchen.</small>'}
+document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>show(b));show(document.querySelector('.opt.on'));
+</script>
+<script src="atk_bubur.jpg.js"></script><script src="atk_nasikuning.jpg.js"></script><script src="atk_rendang.jpg.js"></script><script src="atk_rendang2.jpg.js"></script><script src="atk_sate.jpg.js"></script><script>document.querySelectorAll("img[data-i]").forEach(function(i){i.src=window.__img[i.dataset.i]})</script></body></html>
