@@ -331,8 +331,15 @@
   /* contact: the form card drops onto the table */
   gsap.from('.form',{y:120,rotation:6*dir,autoAlpha:0,duration:1.3,ease:'expo.out',scrollTrigger:{trigger:'.form',start:'top 88%'}});
 
-  /* footer: NOTA rises */
-  gsap.from('.foot__big img',{yPercent:60,autoAlpha:0,ease:'none',scrollTrigger:{trigger:'.foot',start:'top bottom',end:'bottom bottom',scrub:true}});
+  /* footer: the last page */
+  gsap.from('.foot__title .ln',{yPercent:110,rotation:RTL?-3:3,autoAlpha:0,duration:1.1,ease:'expo.out',stagger:.12,scrollTrigger:{trigger:'.foot__title',start:'top 85%'}});
+  gsap.from('.foot__cta',{scale:0,rotation:-90,duration:1.2,ease:'elastic.out(1,.6)',scrollTrigger:{trigger:'.foot__top',start:'top 70%'}});
+  gsap.from('.foot__cols>div',{y:40,autoAlpha:0,duration:.9,ease:'expo.out',stagger:.1,scrollTrigger:{trigger:'.foot__cols',start:'top 90%'}});
+  gsap.from('.foot__big img',{yPercent:70,ease:'none',scrollTrigger:{trigger:'.foot__big',start:'top bottom',end:'bottom bottom',scrub:true}});
+  (function(){var c=$('.foot__cta');if(!c||!matchMedia('(hover:hover)').matches)return;
+    var qx=gsap.quickTo(c,'x',{duration:.6,ease:'power3'}),qy=gsap.quickTo(c,'y',{duration:.6,ease:'power3'});
+    c.addEventListener('mousemove',function(e){var r=c.getBoundingClientRect();qx((e.clientX-r.left-r.width/2)*.35);qy((e.clientY-r.top-r.height/2)*.35)});
+    c.addEventListener('mouseleave',function(){qx(0);qy(0)});})();
 
   ScrollTrigger.sort();
   window.addEventListener('load',function(){ScrollTrigger.sort();ScrollTrigger.refresh()});

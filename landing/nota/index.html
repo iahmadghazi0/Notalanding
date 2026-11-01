@@ -18,7 +18,7 @@
 
 <link rel="preload" href="fonts/readex-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts.css">
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=5">
 <script>
   (function(){
     var p=new URLSearchParams(location.search).get('lang');
@@ -377,15 +377,40 @@
 </main>
 
 <footer class="foot">
-  <div class="foot__big" aria-hidden="true"><img src="assets/wordmark-paper.webp" alt="" width="1382" height="611" loading="lazy"></div>
-  <img class="foot__logo" src="assets/logo-paper.webp" alt="NOTA, Digital Solutions and Growth Agency" width="1382" height="708" loading="lazy">
-  <p><span lang="en">One agency for the whole digital side of your business</span><span lang="ar">وكالة واحدة لكل اللي شغلك محتاجه أونلاين</span></p>
-  <div class="foot__links">
-    <a href="https://wa.me/201029752345" target="_blank" rel="noopener"><span lang="en">WhatsApp</span><span lang="ar">واتساب</span></a>
-    <a href="mailto:iahmadghazii@gmail.com"><span lang="en">Email</span><span lang="ar">إيميل</span></a>
-    <a href="#top"><span lang="en">Back to top</span><span lang="ar">لفوق</span></a>
+  <div class="foot__rules" aria-hidden="true"></div>
+  <div class="foot__top">
+    <p class="foot__kicker"><span lang="en">The last page</span><span lang="ar">آخر صفحة</span></p>
+    <h2 class="foot__title">
+      <span lang="en"><span class="ln">Let's write</span> <span class="ln">the next page</span> <span class="ln">of your business</span></span>
+      <span lang="ar"><span class="ln">يلا نكتب</span> <span class="ln">الصفحة الجاية</span> <span class="ln">في شغلك</span></span>
+    </h2>
+    <a class="foot__cta" href="https://wa.me/201029752345" target="_blank" rel="noopener" data-cursor-en="WhatsApp" data-cursor-ar="واتساب">
+      <span class="foot__cta-in"><span lang="en">See your direction</span><span lang="ar">شوف اتجاه شغلك</span></span>
+    </a>
   </div>
-  <p class="foot__small">© <span id="yr">2026</span> NOTA</p>
+  <div class="foot__cols">
+    <div>
+      <p class="foot__h"><span lang="en">Talk to us</span><span lang="ar">كلّمنا</span></p>
+      <a href="https://wa.me/201029752345" target="_blank" rel="noopener" dir="ltr">+20 102 975 2345</a>
+      <a href="mailto:iahmadghazii@gmail.com" dir="ltr">iahmadghazii@gmail.com</a>
+    </div>
+    <div>
+      <p class="foot__h"><span lang="en">Inside</span><span lang="ar">جوّه</span></p>
+      <a href="#services"><span lang="en">Services</span><span lang="ar">الخدمات</span></a>
+      <a href="#how"><span lang="en">How we work</span><span lang="ar">طريقة الشغل</span></a>
+      <a href="#offer"><span lang="en">The offer</span><span lang="ar">العرض</span></a>
+      <a href="#about"><span lang="en">About</span><span lang="ar">عن أحمد</span></a>
+    </div>
+    <div>
+      <p class="foot__h"><span lang="en">Where</span><span lang="ar">فين</span></p>
+      <p><span lang="en">For businesses anywhere in the world</span><span lang="ar">لأي بيزنس، في أي حتة في العالم</span></p>
+    </div>
+  </div>
+  <div class="foot__big" aria-hidden="true"><img src="assets/wordmark-paper.webp" alt="" width="1382" height="611" loading="lazy"></div>
+  <div class="foot__bar">
+    <p>© <span id="yr">2026</span> NOTA <span lang="en">Solutions Agency</span><span lang="ar">سوليوشنز إيجنسي</span></p>
+    <a class="foot__up" href="#top"><span lang="en">Back to top</span><span lang="ar">لفوق</span><i aria-hidden="true">↑</i></a>
+  </div>
 </footer>
 
 <script src="vendor/gsap.min.js" defer></script>
@@ -394,6 +419,6 @@
 <script src="vendor/lenis.min.js" defer></script>
 <script src="vendor/Draggable.min.js" defer></script>
 <script src="vendor/InertiaPlugin.min.js" defer></script>
-<script src="main.js?v=4" defer></script>
+<script src="main.js?v=5" defer></script>
 </body>
 </html>
