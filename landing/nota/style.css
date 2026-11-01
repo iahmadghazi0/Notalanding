@@ -566,3 +566,7 @@ html{overflow-x:clip}
 .skip:focus{top:12px!important}
 .grain{inset:0!important;width:100%!important;height:100%!important;animation:grain2 1.2s steps(6) infinite!important}
 @keyframes grain2{0%{background-position:0 0}20%{background-position:-40px 30px}40%{background-position:30px -50px}60%{background-position:-20px 40px}80%{background-position:50px 10px}100%{background-position:0 0}}
+/* v7: no sticky stacking */
+.stack{position:relative!important;top:auto!important}
+.services,.who,.diff,.lab,.packs,.about,.faq,.contact{transform-origin:50% 0;position:relative}
+.js .diff,.js .lab,.js .packs,.js .faq{border-radius:clamp(22px,3vw,40px) clamp(22px,3vw,40px) 0 0;box-shadow:0 -18px 50px -20px rgba(0,0,0,.25)}

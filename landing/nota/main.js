@@ -335,22 +335,10 @@
   burger.addEventListener('click',function(){menuSet(burger.getAttribute('aria-expanded')!=='true')});
   $$('#menu a').forEach(function(a){a.addEventListener('click',function(){menuSet(false)})});
 
-  /* sheets: each section sticks, the next one slides over it like a new page */
-  [].slice.call($('#main').children).concat([$('.foot')]).forEach(function(el,k){el.style.zIndex=k+1;if(getComputedStyle(el).position==='static')el.style.position='relative'});
-  var stacks=$$('.services,.who,.diff,.lab,.packs,.about,.faq,.contact');
-  stacks.forEach(function(sec,i){
-    sec.classList.add('stack');
-    var nx=sec.nextElementSibling;while(nx&&nx.tagName==='SCRIPT')nx=nx.nextElementSibling;
-    var shade=document.createElement('i');shade.className='stack__shade';sec.appendChild(shade);
-    function fit(){sec.style.top=Math.min(0,window.innerHeight-sec.offsetHeight)+'px'}
-    fit();window.addEventListener('resize',fit);ScrollTrigger.addEventListener('refreshInit',fit);
-    if(nx){
-      var sent=document.createElement('div');sent.setAttribute('aria-hidden','true');sent.style.cssText='height:0;position:static';sec.after(sent);
-      gsap.timeline({scrollTrigger:{trigger:sent,invalidateOnRefresh:true,
-          start:function(){return 'top '+Math.min(sec.offsetHeight,window.innerHeight)+'px'},end:'top top',scrub:true}})
-        .to(sec,{scale:.93,rotation:i%2?.6:-.6,ease:'none'},0)
-        .to(shade,{opacity:.35,ease:'none'},0);
-    }
+  /* sheets: each section rises in like a fresh page (no sticky layers, nothing left behind) */
+  $$('.services,.who,.diff,.lab,.packs,.about,.faq,.contact').forEach(function(sec,i){
+    gsap.fromTo(sec,{scale:.94,rotation:i%2?.8:-.8,yPercent:4},{scale:1,rotation:0,yPercent:0,ease:'none',immediateRender:false,
+      scrollTrigger:{trigger:sec,start:'top bottom',end:'top 35%',scrub:.6}});
   });
 
   /* marquee band, speed follows your scroll */
@@ -427,7 +415,7 @@
   gsap.from('.faq details',{x:40*dir,autoAlpha:0,duration:.8,ease:'expo.out',stagger:.06,scrollTrigger:{trigger:'.faq__list',start:'top 85%'}});
 
   /* about: the photo reveals from below */
-  gsap.fromTo('.about__img',{clipPath:'inset(100% 0 0 0 round 18px)'},{clipPath:'inset(0% 0 0 0 round 18px)',duration:1.4,ease:'expo.inOut',scrollTrigger:{trigger:'.about__img',start:'top 80%'}});
+  gsap.fromTo('.about__img',{clipPath:'inset(100% 0 0 0 round 18px)'},{clipPath:'inset(0% 0 0 0 round 18px)',duration:1.4,ease:'expo.inOut',scrollTrigger:{trigger:'.about__img',start:'top 98%'}});
   gsap.fromTo('.about__img img',{scale:1.35},{scale:1,yPercent:-6,ease:'none',scrollTrigger:{trigger:'.about',start:'top bottom',end:'bottom top',scrub:true}});
   gsap.from('.about__role',{autoAlpha:0,x:-30*dir,duration:.9,ease:'expo.out',scrollTrigger:{trigger:'.about__role',start:'top 90%'}});
 
