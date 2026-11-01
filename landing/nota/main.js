@@ -26,8 +26,8 @@
     if(!n||!b){err.hidden=false;(n?form.business:form.name).focus();return}
     err.hidden=true;
     var msg=RTL
-      ? 'أهلاً أحمد، أنا '+n+'.\nشغلي: '+b+(d?'\nنفسي أغيّر: '+d:'')+'\nعايز أشوف اتجاه شغلي.'
-      : 'Hi Ahmad, I am '+n+'.\nMy business: '+b+(d?'\nWhat I would like to change: '+d:'')+'\nI would like to see my direction.';
+      ? 'أهلاً أحمد، أنا '+n+'\nشغلي: '+b+(d?'\nنفسي أغيّر: '+d:'')+'\nعايز أشوف اتجاه شغلي'
+      : 'Hi Ahmad, I am '+n+'\nMy business: '+b+(d?'\nWhat I would like to change: '+d:'')+'\nI would like to see my direction';
     window.open('https://wa.me/201029752345?text='+encodeURIComponent(msg),'_blank','noopener');
   });
 
@@ -144,7 +144,7 @@
   /* hero: ruled notebook lines that bend around the cursor */
   (function(){
     var cv=$('.hero__lines');if(!cv)return;var ctx=cv.getContext('2d');var W,H,dpr,gap=38,margin;
-    var sm={x:-9999,y:-9999};
+    var sm={x:-9999,y:-9999};var trail=[];hero.addEventListener('mousemove',function(e){var r=cv.getBoundingClientRect();trail.push({x:e.clientX-r.left,y:e.clientY-r.top,t:performance.now()});if(trail.length>80)trail.shift()});
     function size(){dpr=Math.min(window.devicePixelRatio||1,2);var r=cv.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);var pd=Math.min(72,Math.max(20,W*.05))*.42;margin=RTL?W-pd:pd}
     size();window.addEventListener('resize',size);
     var visible=true;ScrollTrigger.create({trigger:hero,start:'top top',end:'bottom top',onToggle:function(st){visible=st.isActive}});
@@ -167,6 +167,12 @@
         }
         ctx.stroke();
       }
+      var now=performance.now();while(trail.length&&now-trail[0].t>900)trail.shift();
+      if(trail.length>2){ctx.lineCap='round';ctx.lineJoin='round';
+        for(var q=1;q<trail.length;q++){var a=trail[q-1],b=trail[q],life=1-(now-b.t)/900;
+          ctx.strokeStyle='rgba(210,240,74,'+(.9*life)+')';ctx.lineWidth=10+30*life;
+          ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}
+        ctx.lineCap='butt';}
       ctx.strokeStyle='rgba(210,240,74,.95)';ctx.lineWidth=2.5;
       ctx.beginPath();ctx.moveTo(margin,0);ctx.lineTo(margin,H);ctx.stroke();
     });
@@ -250,6 +256,24 @@
   burger.addEventListener('click',function(){menuSet(burger.getAttribute('aria-expanded')!=='true')});
   $$('#menu a').forEach(function(a){a.addEventListener('click',function(){menuSet(false)})});
 
+  /* sheets: each section sticks, the next one slides over it like a new page */
+  var stacks=$$('.services,.who,.offer,.about,.contact');
+  stacks.forEach(function(sec,i){
+    sec.classList.add('stack');sec.style.zIndex=2+i*2;
+    var nx=sec.nextElementSibling;while(nx&&nx.tagName==='SCRIPT')nx=nx.nextElementSibling;
+    if(nx&&!nx.classList.contains('stack'))nx.style.zIndex=3+i*2;
+    var shade=document.createElement('i');shade.className='stack__shade';sec.appendChild(shade);
+    function fit(){sec.style.top=Math.min(0,window.innerHeight-sec.offsetHeight)+'px'}
+    fit();window.addEventListener('resize',fit);ScrollTrigger.addEventListener('refreshInit',fit);
+    if(nx){
+      var sent=document.createElement('div');sent.setAttribute('aria-hidden','true');sent.style.cssText='height:0;position:static';sec.after(sent);
+      gsap.timeline({scrollTrigger:{trigger:sent,invalidateOnRefresh:true,
+          start:function(){return 'top '+Math.min(sec.offsetHeight,window.innerHeight)+'px'},end:'top top',scrub:true}})
+        .to(sec,{scale:.93,rotation:i%2?.6:-.6,ease:'none'},0)
+        .to(shade,{opacity:.35,ease:'none'},0);
+    }
+  });
+
   /* marquee band, speed follows your scroll */
   var band=$('.band__track');
   var loop=gsap.to(band,{xPercent:-50*dir,duration:22,ease:'none',repeat:-1});
@@ -310,5 +334,6 @@
   /* footer: NOTA rises */
   gsap.from('.foot__big img',{yPercent:60,autoAlpha:0,ease:'none',scrollTrigger:{trigger:'.foot',start:'top bottom',end:'bottom bottom',scrub:true}});
 
-  window.addEventListener('load',function(){ScrollTrigger.refresh()});
+  ScrollTrigger.sort();
+  window.addEventListener('load',function(){ScrollTrigger.sort();ScrollTrigger.refresh()});
 })();
