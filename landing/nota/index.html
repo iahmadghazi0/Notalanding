@@ -7,14 +7,18 @@
 <meta name="description" content="NOTA builds the brand, the website, the content and the systems behind them, for businesses anywhere in the world. See your direction before you pay for anything.">
 <meta property="og:title" content="NOTA | One studio for the whole digital side of your business">
 <meta property="og:description" content="We think first, then build. Brand, website, content and systems under one roof.">
-<meta property="og:image" content="assets/og.jpg">
+<meta property="og:image" content="https://iahmadghazi0.github.io/Notalanding/nota/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://iahmadghazi0.github.io/Notalanding/nota/">
+<link rel="alternate" hreflang="en" href="https://iahmadghazi0.github.io/Notalanding/nota/?lang=en">
+<link rel="alternate" hreflang="ar" href="https://iahmadghazi0.github.io/Notalanding/nota/?lang=ar">
 <meta name="theme-color" content="#123B2A">
 <link rel="icon" href="assets/favicon.png">
 
 
 <link rel="preload" href="fonts/readex-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts.css">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=3">
 <script>
   (function(){
     var p=new URLSearchParams(location.search).get('lang');
@@ -22,11 +26,17 @@
     var l=p||s||((navigator.language||'').toLowerCase().indexOf('ar')===0?'ar':'en');
     if(l!=='ar')l='en';
     document.documentElement.lang=l; document.documentElement.dir=l==='ar'?'rtl':'ltr';
-    document.documentElement.classList.add('js');
+    document.documentElement.classList.add("js");try{if(sessionStorage.getItem("nota-seen"))document.documentElement.classList.add("skip-loader")}catch(e){}
   })();
 </script>
 </head>
 <body>
+<div class="loader" aria-hidden="true">
+  <div class="loader__in"><img class="loader__mark" src="assets/mark-paper.webp" alt="" width="530" height="609"><span class="loader__bar"><i></i></span></div>
+</div>
+<div class="curtain" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -54,13 +64,25 @@
       <span class="lang__opt" data-l="en">EN</span><span class="lang__opt" data-l="ar">عربي</span>
     </button>
     <a class="btn btn--small" href="#contact"><span lang="en">See your direction</span><span lang="ar">شوف اتجاه شغلك</span></a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="menu"><span class="sr"><span lang="en">Menu</span><span lang="ar">القائمة</span></span><i></i><i></i></button>
   </div>
 </header>
+<div class="menu" id="menu" hidden>
+  <nav aria-label="Mobile">
+    <a href="#services"><span lang="en">Services</span><span lang="ar">الخدمات</span></a>
+    <a href="#how"><span lang="en">How we work</span><span lang="ar">طريقة الشغل</span></a>
+    <a href="#offer"><span lang="en">The offer</span><span lang="ar">العرض</span></a>
+    <a href="#about"><span lang="en">About</span><span lang="ar">عن أحمد</span></a>
+    <a href="#contact"><span lang="en">Contact</span><span lang="ar">تواصل</span></a>
+  </nav>
+  <a class="btn btn--lime" href="https://wa.me/201029752345" target="_blank" rel="noopener"><span lang="en">WhatsApp us</span><span lang="ar">كلّمنا واتساب</span></a>
+</div>
 
 <main id="main">
 
 <!-- HERO -->
 <section class="hero" aria-labelledby="hero-title">
+  <canvas class="hero__lines" aria-hidden="true"></canvas>
   <div class="hero__copy">
     <h1 class="hero__title" id="hero-title">
       <span lang="en"><span class="ln">One studio</span> <span class="ln">for the whole</span> <span class="ln">digital side</span> <span class="ln">of your business.</span></span>
@@ -78,12 +100,13 @@
       <a class="link" href="#services"><span lang="en">What we build</span><span lang="ar">بنبني إيه</span></a>
     </div>
   </div>
-  <div class="hero__mark" aria-hidden="true">
+  <div class="hero__mark" aria-hidden="true" data-cursor-en="Drag" data-cursor-ar="اسحب">
     <img class="hero__note" src="assets/mark-ink.webp" alt="" width="530" height="609">
   </div>
   <p class="hero__foot">
     <span lang="en">For businesses anywhere in the world.</span>
     <span lang="ar">لأي بيزنس، في أي مكان في العالم.</span>
+    <span class="hero__hint" aria-hidden="true"><span lang="en">Scroll</span><span lang="ar">انزل</span><i></i></span>
   </p>
 </section>
 
@@ -133,51 +156,71 @@
       <span lang="en">Everything your business needs online, from one place.</span>
       <span lang="ar">كل اللي شغلك محتاجه أونلاين، من مكان واحد.</span>
     </h2>
-
-    <div class="svc">
-      <div class="svc__group">
-        <h3 class="svc__head"><span lang="en">Brand</span><span lang="ar">البراند</span></h3>
-        <ul class="svc__list">
-          <li><strong><span lang="en">Brand strategy</span><span lang="ar">استراتيجية البراند</span></strong>
-            <p><span lang="en">Positioning, voice, identity and the world your brand lives in.</span><span lang="ar">مكانك في السوق، صوتك، هويتك، والعالم اللي البراند عايش فيه.</span></p></li>
-          <li><strong><span lang="en">Visual identity and direction</span><span lang="ar">الهوية البصرية والاتجاه</span></strong>
-            <p><span lang="en">Look and feel, mood boards and brand guidelines.</span><span lang="ar">الشكل والإحساس، المود بورد، ودليل استخدام البراند.</span></p></li>
-        </ul>
+    <div class="ix">
+      <div class="ix__row">
+        <h3 class="ix__h"><button class="ix__btn" type="button" aria-expanded="false" aria-controls="ix-brand" data-cursor-en="Open" data-cursor-ar="افتح">
+          <span class="ix__name"><span lang="en">Brand</span><span lang="ar">البراند</span></span>
+          <span class="ix__sum"><span lang="en">Who you are, and how you look and sound.</span><span lang="ar">إنت مين، وشكلك وصوتك عامل إزاي.</span></span>
+          <span class="ix__plus" aria-hidden="true"></span>
+        </button></h3>
+        <div class="ix__panel" id="ix-brand" role="region"><ul class="ix__list">
+          <li><strong><span lang="en">Brand strategy</span><span lang="ar">استراتيجية البراند</span></strong><p><span lang="en">Positioning, voice, identity and the world your brand lives in.</span><span lang="ar">مكانك في السوق، صوتك، هويتك، والعالم اللي البراند عايش فيه.</span></p></li>
+          <li><strong><span lang="en">Visual identity and direction</span><span lang="ar">الهوية البصرية والاتجاه</span></strong><p><span lang="en">Look and feel, mood boards and brand guidelines.</span><span lang="ar">الشكل والإحساس، المود بورد، ودليل استخدام البراند.</span></p></li>
+        </ul></div>
       </div>
-      <div class="svc__group">
-        <h3 class="svc__head"><span lang="en">Web</span><span lang="ar">الويب</span></h3>
-        <ul class="svc__list">
-          <li><strong><span lang="en">Websites and web apps</span><span lang="ar">مواقع وتطبيقات ويب</span></strong>
-            <p><span lang="en">High-end, mobile first, fast and built to turn visitors into customers.</span><span lang="ar">راقية، معمولة للموبايل الأول، سريعة، ومبنية عشان تحوّل الزائر لعميل.</span></p></li>
-          <li><strong><span lang="en">E-commerce and booking systems</span><span lang="ar">متاجر إلكترونية وأنظمة حجز</span></strong>
-            <p><span lang="en">Buying and booking that feel easy for your customer.</span><span lang="ar">شراء وحجز سهل ومريح على عميلك.</span></p></li>
-        </ul>
+      <div class="ix__row">
+        <h3 class="ix__h"><button class="ix__btn" type="button" aria-expanded="false" aria-controls="ix-web" data-cursor-en="Open" data-cursor-ar="افتح">
+          <span class="ix__name"><span lang="en">Web</span><span lang="ar">الويب</span></span>
+          <span class="ix__sum"><span lang="en">Where people decide to buy from you.</span><span lang="ar">المكان اللي الناس بتقرر فيه تشتري منك.</span></span>
+          <span class="ix__plus" aria-hidden="true"></span>
+        </button></h3>
+        <div class="ix__panel" id="ix-web" role="region"><ul class="ix__list">
+          <li><strong><span lang="en">Websites and web apps</span><span lang="ar">مواقع وتطبيقات ويب</span></strong><p><span lang="en">High-end, mobile first, fast and built to turn visitors into customers.</span><span lang="ar">راقية، معمولة للموبايل الأول، سريعة، ومبنية عشان تحوّل الزائر لعميل.</span></p></li>
+          <li><strong><span lang="en">E-commerce and booking systems</span><span lang="ar">متاجر إلكترونية وأنظمة حجز</span></strong><p><span lang="en">Buying and booking that feel easy for your customer.</span><span lang="ar">شراء وحجز سهل ومريح على عميلك.</span></p></li>
+        </ul></div>
       </div>
-      <div class="svc__group">
-        <h3 class="svc__head"><span lang="en">Content and marketing</span><span lang="ar">المحتوى والتسويق</span></h3>
-        <ul class="svc__list">
-          <li><strong><span lang="en">Digital marketing</span><span lang="ar">التسويق الرقمي</span></strong>
-            <p><span lang="en">Content strategy, social media management, short-form video, carousels and ads.</span><span lang="ar">استراتيجية محتوى، إدارة السوشيال ميديا، فيديوهات قصيرة، كاروسيل، وإعلانات.</span></p></li>
-          <li><strong><span lang="en">Content production</span><span lang="ar">إنتاج المحتوى</span></strong>
-            <p><span lang="en">Films, photography direction and copywriting in Arabic and English.</span><span lang="ar">أفلام، توجيه تصوير، وكتابة بالعربي والإنجليزي.</span></p></li>
-          <li><strong><span lang="en">SEO and search visibility</span><span lang="ar">السيو والظهور في البحث</span></strong>
-            <p><span lang="en">So the people looking for you can find you.</span><span lang="ar">عشان اللي بيدوّر عليك يلاقيك.</span></p></li>
-        </ul>
+      <div class="ix__row">
+        <h3 class="ix__h"><button class="ix__btn" type="button" aria-expanded="false" aria-controls="ix-content" data-cursor-en="Open" data-cursor-ar="افتح">
+          <span class="ix__name"><span lang="en">Content</span><span lang="ar">المحتوى</span></span>
+          <span class="ix__sum"><span lang="en">What people see from you every day.</span><span lang="ar">اللي الناس بتشوفه منك كل يوم.</span></span>
+          <span class="ix__plus" aria-hidden="true"></span>
+        </button></h3>
+        <div class="ix__panel" id="ix-content" role="region"><ul class="ix__list">
+          <li><strong><span lang="en">Digital marketing</span><span lang="ar">التسويق الرقمي</span></strong><p><span lang="en">Content strategy, social media management, short-form video, carousels and ads.</span><span lang="ar">استراتيجية محتوى، إدارة السوشيال ميديا، فيديوهات قصيرة، كاروسيل، وإعلانات.</span></p></li>
+          <li><strong><span lang="en">Content production</span><span lang="ar">إنتاج المحتوى</span></strong><p><span lang="en">Films, photography direction and copywriting in Arabic and English.</span><span lang="ar">أفلام، توجيه تصوير، وكتابة بالعربي والإنجليزي.</span></p></li>
+          <li><strong><span lang="en">SEO and search visibility</span><span lang="ar">السيو والظهور في البحث</span></strong><p><span lang="en">So the people looking for you can find you.</span><span lang="ar">عشان اللي بيدوّر عليك يلاقيك.</span></p></li>
+        </ul></div>
       </div>
-      <div class="svc__group">
-        <h3 class="svc__head"><span lang="en">Systems and growth</span><span lang="ar">الأنظمة والنمو</span></h3>
-        <ul class="svc__list">
-          <li><strong><span lang="en">Email and WhatsApp marketing</span><span lang="ar">التسويق بالإيميل والواتساب</span></strong>
-            <p><span lang="en">Lead capture and automation that keep the conversation with your customer going.</span><span lang="ar">جمع بيانات العملاء والأتمتة، عشان الكلام مع عميلك ميقفش.</span></p></li>
-          <li><strong><span lang="en">Analytics and growth support</span><span lang="ar">التحليلات ودعم النمو</span></strong>
-            <p><span lang="en">Tracking what works, and improving it.</span><span lang="ar">نتابع إيه اللي شغال، ونطوّره.</span></p></li>
-          <li><strong><span lang="en">Ongoing partnership</span><span lang="ar">شراكة مستمرة</span></strong>
-            <p><span lang="en">A monthly retainer that keeps your brand evolving.</span><span lang="ar">اشتراك شهري يخلّي البراند بتاعك يفضل يتطور.</span></p></li>
-        </ul>
+      <div class="ix__row">
+        <h3 class="ix__h"><button class="ix__btn" type="button" aria-expanded="false" aria-controls="ix-systems" data-cursor-en="Open" data-cursor-ar="افتح">
+          <span class="ix__name"><span lang="en">Systems</span><span lang="ar">الأنظمة</span></span>
+          <span class="ix__sum"><span lang="en">What keeps it working after launch.</span><span lang="ar">اللي بيخلّي كل ده يفضل شغال بعد الإطلاق.</span></span>
+          <span class="ix__plus" aria-hidden="true"></span>
+        </button></h3>
+        <div class="ix__panel" id="ix-systems" role="region"><ul class="ix__list">
+          <li><strong><span lang="en">Email and WhatsApp marketing</span><span lang="ar">التسويق بالإيميل والواتساب</span></strong><p><span lang="en">Lead capture and automation that keep the conversation with your customer going.</span><span lang="ar">جمع بيانات العملاء والأتمتة، عشان الكلام مع عميلك ميقفش.</span></p></li>
+          <li><strong><span lang="en">Analytics and growth support</span><span lang="ar">التحليلات ودعم النمو</span></strong><p><span lang="en">Tracking what works, and improving it.</span><span lang="ar">نتابع إيه اللي شغال، ونطوّره.</span></p></li>
+          <li><strong><span lang="en">Ongoing partnership</span><span lang="ar">شراكة مستمرة</span></strong><p><span lang="en">A monthly retainer that keeps your brand evolving.</span><span lang="ar">اشتراك شهري يخلّي البراند بتاعك يفضل يتطور.</span></p></li>
+        </ul></div>
       </div>
     </div>
   </div>
 </section>
+
+<div class="band" aria-hidden="true">
+  <div class="band__track">
+    <div class="band__set">
+      <span lang="en">Think first. Then build.</span><span lang="ar">نفكّر الأول. وبعدين نبني.</span><img src="assets/mark-ink.webp" alt="">
+      <span lang="en">Brand, web, content, systems.</span><span lang="ar">براند، ويب، محتوى، أنظمة.</span><img src="assets/mark-ink.webp" alt="">
+      <span lang="en">One studio.</span><span lang="ar">استوديو واحد.</span><img src="assets/mark-ink.webp" alt="">
+    </div>
+    <div class="band__set">
+      <span lang="en">Think first. Then build.</span><span lang="ar">نفكّر الأول. وبعدين نبني.</span><img src="assets/mark-ink.webp" alt="">
+      <span lang="en">Brand, web, content, systems.</span><span lang="ar">براند، ويب، محتوى، أنظمة.</span><img src="assets/mark-ink.webp" alt="">
+      <span lang="en">One studio.</span><span lang="ar">استوديو واحد.</span><img src="assets/mark-ink.webp" alt="">
+    </div>
+  </div>
+</div>
 
 <!-- WHO -->
 <section class="who" aria-labelledby="who-title">
@@ -196,41 +239,45 @@
       </span>
     </p>
     <p class="who__note">
-      <span lang="en">Any industry, any country, any size. Halal work only.</span>
-      <span lang="ar">أي مجال، أي بلد، أي حجم. شغل حلال بس.</span>
+      <span lang="en">Any industry, any country, any size.</span>
+      <span lang="ar">أي مجال، أي بلد، أي حجم.</span>
     </p>
   </div>
 </section>
 
 <!-- HOW -->
 <section class="how" id="how" aria-labelledby="how-title">
-  <div class="wrap">
-    <h2 class="h-section" id="how-title"><span lang="en">How we work</span><span lang="ar">إزاي بنشتغل</span></h2>
-    <div class="how__path">
-      <svg class="how__line" viewBox="0 0 20 1000" preserveAspectRatio="none" aria-hidden="true"><path d="M10 0 C 16 120, 4 260, 10 400 S 16 700, 10 1000"/></svg>
-      <ol class="steps">
-        <li class="step">
-          <span class="step__n">1</span>
-          <h3><span lang="en">Listen and diagnose</span><span lang="ar">نسمع ونشخّص</span></h3>
+  <div class="how__pin">
+    <div class="how__head wrap">
+      <h2 class="h-section" id="how-title"><span lang="en">How we work</span><span lang="ar">إزاي بنشتغل</span></h2>
+      <div class="how__bar" aria-hidden="true"><i></i></div>
+    </div>
+    <ol class="how__track">
+        <li class="hp">
+          <span class="hp__n" aria-hidden="true">1</span>
+          <svg class="hp__doodle" viewBox="0 0 160 120" aria-hidden="true"><path d="M20 60 C 20 25, 70 25, 70 60 C 70 85, 45 90, 45 105 M100 30 L140 30 M100 55 L150 55 M100 80 L130 80"/></svg>
+          <h3><span class="sr">1. </span><span lang="en">Listen and diagnose</span><span lang="ar">نسمع ونشخّص</span></h3>
           <p><span lang="en">We learn your business and name what is holding it back.</span><span lang="ar">نفهم شغلك، ونسمّي بالظبط إيه اللي موقّفه.</span></p>
         </li>
-        <li class="step">
-          <span class="step__n">2</span>
-          <h3><span lang="en">Direction</span><span lang="ar">الاتجاه</span></h3>
+        <li class="hp">
+          <span class="hp__n" aria-hidden="true">2</span>
+          <svg class="hp__doodle" viewBox="0 0 160 120" aria-hidden="true"><path d="M15 100 L60 55 L85 78 L145 18 M118 18 L145 18 L142 45"/></svg>
+          <h3><span class="sr">2. </span><span lang="en">Direction</span><span lang="ar">الاتجاه</span></h3>
           <p><span lang="en">A strategic blueprint and a visual direction, before any paid project.</span><span lang="ar">خطة استراتيجية واتجاه بصري، قبل أي مشروع مدفوع.</span></p>
         </li>
-        <li class="step">
-          <span class="step__n">3</span>
-          <h3><span lang="en">Build</span><span lang="ar">البناء</span></h3>
+        <li class="hp">
+          <span class="hp__n" aria-hidden="true">3</span>
+          <svg class="hp__doodle" viewBox="0 0 160 120" aria-hidden="true"><path d="M20 20 L140 20 L140 100 L20 100 Z M20 42 L140 42 M38 62 L90 62 M38 80 L120 80"/></svg>
+          <h3><span class="sr">3. </span><span lang="en">Build</span><span lang="ar">البناء</span></h3>
           <p><span lang="en">Brand, website, content and systems, made as one.</span><span lang="ar">البراند، الموقع، المحتوى، والأنظمة، معمولين كحاجة واحدة.</span></p>
         </li>
-        <li class="step">
-          <span class="step__n">4</span>
-          <h3><span lang="en">Launch and grow</span><span lang="ar">الإطلاق والنمو</span></h3>
+        <li class="hp">
+          <span class="hp__n" aria-hidden="true">4</span>
+          <svg class="hp__doodle" viewBox="0 0 160 120" aria-hidden="true"><path d="M80 105 L80 30 M55 55 L80 25 L105 55 M30 105 L130 105"/></svg>
+          <h3><span class="sr">4. </span><span lang="en">Launch and grow</span><span lang="ar">الإطلاق والنمو</span></h3>
           <p><span lang="en">We measure, improve and keep it evolving.</span><span lang="ar">نقيس، نحسّن، ونفضل نطوّر.</span></p>
         </li>
-      </ol>
-    </div>
+    </ol>
   </div>
 </section>
 
@@ -302,7 +349,7 @@
       <h2 id="contact-title"><span lang="en">Tell us about your business.</span><span lang="ar">احكيلنا عن شغلك.</span></h2>
       <p><span lang="en">Message us on WhatsApp, or write a few lines here. We reply ourselves.</span><span lang="ar">كلّمنا على واتساب، أو اكتب كام سطر هنا. وهنرد عليك بنفسنا.</span></p>
       <div class="contact__direct">
-        <a class="direct" href="https://wa.me/201029752345" target="_blank" rel="noopener">
+        <a class="direct" data-cursor="WhatsApp" href="https://wa.me/201029752345" target="_blank" rel="noopener">
           <span class="direct__k"><span lang="en">WhatsApp</span><span lang="ar">واتساب</span></span>
           <span class="direct__v" dir="ltr">+20 102 975 2345</span>
         </a>
@@ -329,13 +376,23 @@
 </main>
 
 <footer class="foot">
-  <img src="assets/logo-paper.webp" alt="NOTA, Digital Solutions and Growth Agency" width="1382" height="708" loading="lazy">
+  <div class="foot__big" aria-hidden="true"><img src="assets/wordmark-paper.webp" alt="" width="1382" height="611" loading="lazy"></div>
+  <img class="foot__logo" src="assets/logo-paper.webp" alt="NOTA, Digital Solutions and Growth Agency" width="1382" height="708" loading="lazy">
   <p><span lang="en">One studio for the whole digital side of your business.</span><span lang="ar">استوديو واحد لكل الجانب الرقمي في شغلك.</span></p>
+  <div class="foot__links">
+    <a href="https://wa.me/201029752345" target="_blank" rel="noopener"><span lang="en">WhatsApp</span><span lang="ar">واتساب</span></a>
+    <a href="mailto:iahmadghazii@gmail.com"><span lang="en">Email</span><span lang="ar">إيميل</span></a>
+    <a href="#top"><span lang="en">Back to top</span><span lang="ar">لفوق</span></a>
+  </div>
   <p class="foot__small">© <span id="yr">2026</span> NOTA</p>
 </footer>
 
 <script src="vendor/gsap.min.js" defer></script>
 <script src="vendor/ScrollTrigger.min.js" defer></script>
-<script src="main.js" defer></script>
+<script src="vendor/SplitText.min.js" defer></script>
+<script src="vendor/lenis.min.js" defer></script>
+<script src="vendor/Draggable.min.js" defer></script>
+<script src="vendor/InertiaPlugin.min.js" defer></script>
+<script src="main.js?v=3" defer></script>
 </body>
 </html>
