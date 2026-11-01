@@ -17,18 +17,97 @@
     },2300);
   })();
 
-  /* form to WhatsApp */
+  /* contact form: line opens soon */
   var form=$('#lead');
   form.addEventListener('submit',function(e){
     e.preventDefault();
-    var n=form.name.value.trim(),b=form.business.value.trim(),d=form.need.value.trim();
-    var err=$('.form__err',form);
-    if(!n||!b){err.hidden=false;(n?form.business:form.name).focus();return}
-    err.hidden=true;
-    var msg=RTL
-      ? 'أهلاً أحمد، أنا '+n+'\nشغلي: '+b+(d?'\nنفسي أغيّر: '+d:'')+'\nعايز أشوف اتجاه شغلي'
-      : 'Hi Ahmad, I am '+n+'\nMy business: '+b+(d?'\nWhat I would like to change: '+d:'')+'\nI would like to see my direction';
-    window.open('https://wa.me/201029752345?text='+encodeURIComponent(msg),'_blank','noopener');
+    var btn=$('.btn--soon',form);
+    if(window.gsap)gsap.fromTo(btn,{x:0},{x:8,duration:.07,repeat:5,yoyo:true,ease:'none',clearProps:'x'});
+  });
+
+  /* difference: drag the line */
+  (function(){
+    var st=$('.diff__stage');if(!st)return;var hd=$('.diff__handle',st),dragging=false;
+    function set(p){p=Math.max(2,Math.min(98,p));st.style.setProperty('--p',p+'%');hd.setAttribute('aria-valuenow',Math.round(p))}
+    st._set=set;
+    function at(e){var r=st.getBoundingClientRect();set((e.clientX-r.left)/r.width*100)}
+    st.addEventListener('pointerdown',function(e){dragging=true;st.setPointerCapture(e.pointerId);at(e);st.dataset.touched=1});
+    st.addEventListener('pointermove',function(e){if(dragging)at(e)});
+    st.addEventListener('pointerup',function(){dragging=false});
+    st.addEventListener('pointercancel',function(){dragging=false});
+    hd.addEventListener('keydown',function(e){var v=parseFloat(st.style.getPropertyValue('--p'))||50;if(e.key==='ArrowLeft'){set(v-5);e.preventDefault()}if(e.key==='ArrowRight'){set(v+5);e.preventDefault()}});
+  })();
+
+  /* direction lab */
+  (function(){
+    var lab=$('.lab');if(!lab)return;
+    var D={
+      mood:{
+        calm:{p:['#F3F1EC','#A9B8A6','#4E6355','#1E2A24'],dark:false,font:"300 1em 'Readex Pro',sans-serif",tf:'none',ls:'-.02em',
+          en:['Made slowly, for you',['Clear','Gentle','Honest']],ar:['معمول على مهله، عشانك',['واضح','هادي','صادق']]},
+        bold:{p:['#0B0B0B','#FF3B1F','#F5F5F0','#FFD400'],dark:true,font:"800 1em 'Readex Pro',sans-serif",tf:'uppercase',ls:'-.05em',
+          en:['Loud where it matters',['Sharp','Direct','Alive']],ar:['صوته عالي في المكان الصح',['حاد','مباشر','عايش']]},
+        warm:{p:['#F6E7D3','#D9895B','#8C3B1E','#2E1A12'],dark:false,font:"500 1em Georgia,'Times New Roman',serif",tf:'none',ls:'-.01em',
+          en:['Like coming home',['Close','Kind','Rooted']],ar:['زي ما تكون في بيتك',['قريب','طيب','أصيل']]},
+        luxe:{p:['#0F0F10','#C8A96A','#EDE6D8','#3A3A3C'],dark:true,font:"italic 400 1em 'Didot','Bodoni 72',Georgia,serif",tf:'none',ls:'.02em',
+          en:['Quietly exceptional',['Rare','Precise','Still']],ar:['مميز من غير ما يتكلم',['نادر','دقيق','رايق']]},
+        playful:{p:['#FFF6E9','#FF7AA8','#3D7BFF','#FFD23F'],dark:false,font:"700 1em 'Readex Pro',sans-serif",tf:'none',ls:'-.03em',
+          en:['Seriously good fun',['Bright','Quick','Curious']],ar:['جد، بس بيضحّك',['منوّر','خفيف','فضولي']]}
+      },
+      type:{
+        cafe:{en:['Café','Coffee and slow mornings','Your Café'],ar:['كافيه','قهوة وصباحات رايقة','الكافيه بتاعك']},
+        restaurant:{en:['Restaurant','Food with a story','Your Kitchen'],ar:['مطعم','أكل وراه حكاية','مطبخك']},
+        clinic:{en:['Clinic','Care you can trust','Your Clinic'],ar:['عيادة','رعاية تقدر تثق فيها','عيادتك']},
+        store:{en:['Store','Things worth owning','Your Store'],ar:['ستور','حاجات تستاهل تقتنيها','الستور بتاعك']},
+        startup:{en:['Startup','Built for what is next','Your Startup'],ar:['ستارت أب','معمول للي جاي','الستارت أب بتاعك']},
+        personal:{en:['Personal brand','The person behind the work','Your Name'],ar:['براند شخصي','الإنسان اللي ورا الشغل','اسمك']}
+      }
+    };
+    var st={type:'cafe',mood:'calm'},inp=$('#labName');
+    var sw=$$('.board__sw i'),hx=$$('.board__hex span'),shop=$('.board__shop'),nm=$('.board__name'),tg=$('.board__tag'),ty=$('.board__type'),bt=$('.board__btn'),wd=$$('.board__words b');
+    function render(anim){
+      var m=D.mood[st.mood],t=D.type[st.type][L],mm=m[L],p=m.p;
+      var bg=p[0],fg=m.dark?p[2]:p[3],ac=p[1];
+      sw.forEach(function(s,i){s.style.background=p[i]});hx.forEach(function(s,i){s.textContent=p[i]});
+      shop.style.background=bg;shop.style.color=fg;
+      nm.textContent=(inp.value.trim()||t[2]);nm.style.font=m.font;nm.style.fontSize='';nm.style.textTransform=m.tf;nm.style.letterSpacing=m.ls;
+      if(RTL&&/Georgia|Didot/.test(m.font)){nm.style.fontFamily="'Readex Pro',sans-serif";nm.style.fontStyle='normal'}
+      ty.textContent=t[0];tg.textContent=t[1]+(RTL?'، ':', ')+(RTL?mm[0]:mm[0].charAt(0).toLowerCase()+mm[0].slice(1));
+      bt.style.background=ac;bt.style.color=m.dark?p[0]:(st.mood==='calm'||st.mood==='warm'?'#fff':p[3]);
+      wd.forEach(function(w,i){w.textContent=mm[1][i]});
+      if(anim&&window.gsap){
+        gsap.fromTo(sw,{rotationY:90,scale:.6},{rotationY:0,scale:1,duration:.7,ease:'back.out(2)',stagger:.06,overwrite:true});
+        gsap.fromTo([ty,nm,tg,bt],{y:24,autoAlpha:0},{y:0,autoAlpha:1,duration:.6,ease:'expo.out',stagger:.06,overwrite:true});
+        gsap.fromTo(wd,{scale:.4,autoAlpha:0},{scale:1,autoAlpha:1,duration:.5,ease:'back.out(3)',stagger:.05,overwrite:true});
+        gsap.fromTo('.board',{rotation:-1.2},{rotation:gsap.utils.random(-2.4,1.2),duration:.8,ease:'elastic.out(1,.5)'});
+      }
+    }
+    $$('.lab__group').forEach(function(g){
+      var k=g.getAttribute('data-group');
+      $$('.chip',g).forEach(function(c){c.addEventListener('click',function(){
+        $$('.chip',g).forEach(function(x){x.classList.remove('is-on');x.setAttribute('aria-pressed','false')});
+        c.classList.add('is-on');c.setAttribute('aria-pressed','true');st[k]=c.getAttribute('data-v');render(true);
+      })});
+    });
+    inp.placeholder=RTL?'اكتب اسم شغلك':'Type your business name';
+    inp.addEventListener('input',function(){nm.textContent=inp.value.trim()||D.type[st.type][L][2]});
+    $('.lab__shuffle').addEventListener('click',function(){
+      var ts=Object.keys(D.type),ms=Object.keys(D.mood);
+      var t=ts[Math.floor(Math.random()*ts.length)],m=ms[Math.floor(Math.random()*ms.length)];
+      $('.lab__group[data-group="type"] .chip[data-v="'+t+'"]').click();
+      $('.lab__group[data-group="mood"] .chip[data-v="'+m+'"]').click();
+    });
+    render(false);
+  })();
+
+  /* faq: smooth open */
+  $$('.faq details').forEach(function(d){
+    var s=$('summary',d),a=$('.faq__a',d);
+    s.addEventListener('click',function(e){
+      if(!window.gsap)return;e.preventDefault();
+      if(d.open){gsap.to(a,{height:0,duration:.45,ease:'expo.inOut',onComplete:function(){d.open=false;a.style.height='';if(window.ScrollTrigger)ScrollTrigger.refresh()}})}
+      else{d.open=true;gsap.fromTo(a,{height:0},{height:'auto',duration:.6,ease:'expo.out',onComplete:function(){if(window.ScrollTrigger)ScrollTrigger.refresh()}})}
+    });
   });
 
   var G=window.gsap;
@@ -189,7 +268,7 @@
   gsap.to('.hero__copy',{yPercent:-18,autoAlpha:.15,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
 
   /* headings rise line by line */
-  $$('.h-section [lang="'+L+'"], .offer h2 [lang="'+L+'"], .about h2 [lang="'+L+'"], .contact h2 [lang="'+L+'"], .who h2 [lang="'+L+'"]').forEach(function(el){
+  $$('.h-section [lang="'+L+'"], .about h2 [lang="'+L+'"], .contact h2 [lang="'+L+'"], .who h2 [lang="'+L+'"]').forEach(function(el){
     if(!hasSplit){gsap.from(el,{y:40,autoAlpha:0,duration:1,ease:'expo.out',scrollTrigger:{trigger:el,start:'top 88%'}});return}
     SplitText.create(el,{type:'lines',mask:'lines',autoSplit:true,onSplit:function(self){
       return gsap.from(self.lines,{yPercent:115,duration:1.15,ease:'expo.out',stagger:.09,scrollTrigger:{trigger:el,start:'top 88%',toggleActions:'play none none reverse'}});
@@ -197,8 +276,8 @@
   });
 
   /* quiet fade-ups in batches */
-  gsap.set('.about__copy p,.offer__copy p,.offer .btn,.contact__copy>p,.direct,.who__note',{autoAlpha:0,y:34});
-  ScrollTrigger.batch('.about__copy p,.offer__copy p,.offer .btn,.contact__copy>p,.direct,.who__note',{start:'top 90%',
+  gsap.set('.about__copy p,.contact__copy>p,.contact__copy .btn,.lab__sub,.packs__sub,.diff__hint,.who__note',{autoAlpha:0,y:34});
+  ScrollTrigger.batch('.about__copy p,.contact__copy>p,.contact__copy .btn,.lab__sub,.packs__sub,.diff__hint,.who__note',{start:'top 90%',
     onEnter:function(b){gsap.to(b,{autoAlpha:1,y:0,duration:.9,ease:'expo.out',stagger:.07,overwrite:true})},
     onLeaveBack:function(b){gsap.to(b,{autoAlpha:0,y:34,duration:.4,overwrite:true})}});
 
@@ -257,11 +336,11 @@
   $$('#menu a').forEach(function(a){a.addEventListener('click',function(){menuSet(false)})});
 
   /* sheets: each section sticks, the next one slides over it like a new page */
-  var stacks=$$('.services,.who,.offer,.about,.contact');
+  [].slice.call($('#main').children).concat([$('.foot')]).forEach(function(el,k){el.style.zIndex=k+1;if(getComputedStyle(el).position==='static')el.style.position='relative'});
+  var stacks=$$('.services,.who,.diff,.lab,.packs,.about,.faq,.contact');
   stacks.forEach(function(sec,i){
-    sec.classList.add('stack');sec.style.zIndex=2+i*2;
+    sec.classList.add('stack');
     var nx=sec.nextElementSibling;while(nx&&nx.tagName==='SCRIPT')nx=nx.nextElementSibling;
-    if(nx&&!nx.classList.contains('stack'))nx.style.zIndex=3+i*2;
     var shade=document.createElement('i');shade.className='stack__shade';sec.appendChild(shade);
     function fit(){sec.style.top=Math.min(0,window.innerHeight-sec.offsetHeight)+'px'}
     fit();window.addEventListener('resize',fit);ScrollTrigger.addEventListener('refreshInit',fit);
@@ -311,17 +390,41 @@
     }
   });
 
-  /* offer: two taped sheets land and react to your cursor */
-  var bpa=$('.bp__arrow path'),bl=bpa.getTotalLength();gsap.set(bpa,{strokeDasharray:bl,strokeDashoffset:bl});
-  var ot=gsap.timeline({scrollTrigger:{trigger:'.blueprint',start:'top 85%',end:'center 50%',scrub:.7}});
-  ot.from('.bp--back',{y:220,x:80*dir,rotation:24,autoAlpha:0},0).from('.bp--front',{y:300,x:-60*dir,rotation:-22,autoAlpha:0},.12).to(bpa,{strokeDashoffset:0,duration:.5},.5);
-  if(fine){
-    var bp=$('.blueprint');
-    var rx=gsap.quickTo(bp,'rotationY',{duration:.8,ease:'power3'}),ry=gsap.quickTo(bp,'rotationX',{duration:.8,ease:'power3'});
-    gsap.set(bp,{transformPerspective:900});
-    bp.addEventListener('mousemove',function(e){var r=bp.getBoundingClientRect();rx(((e.clientX-r.left)/r.width-.5)*14);ry(-((e.clientY-r.top)/r.height-.5)*12)});
-    bp.addEventListener('mouseleave',function(){rx(0);ry(0)});
-  }
+  /* difference: the line sweeps once to show what it does */
+  ScrollTrigger.create({trigger:'.diff__stage',start:'top 70%',once:true,onEnter:function(){
+    var st=$('.diff__stage'),o={p:88};
+    gsap.timeline().to(o,{p:12,duration:1.4,ease:'power2.inOut',onUpdate:function(){if(!st.dataset.touched)st._set(o.p)}})
+      .to(o,{p:50,duration:1,ease:'expo.out',onUpdate:function(){if(!st.dataset.touched)st._set(o.p)}});
+  }});
+  gsap.from('.diff__a .dc',{scale:.6,rotation:function(i){return [-14,10,-8,16][i]},autoAlpha:0,duration:.9,ease:'back.out(1.6)',stagger:.08,scrollTrigger:{trigger:'.diff__stage',start:'top 80%'}});
+
+  /* manifesto: words light up as you read */
+  (function(){
+    var el=$('.mani__text [lang="'+L+'"]');if(!el)return;
+    var words=[];
+    (function walk(n){[].slice.call(n.childNodes).forEach(function(c){
+      if(c.nodeType===3){var f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(function(w){if(!w)return;if(/^\s+$/.test(w)){f.appendChild(document.createTextNode(w))}else{var s=document.createElement('span');s.className='mw';s.textContent=w;f.appendChild(s);words.push(s)}});n.replaceChild(f,c)}
+      else if(c.nodeType===1)walk(c);
+    })})(el);
+    gsap.to(words,{opacity:1,ease:'none',stagger:.1,scrollTrigger:{trigger:'.mani',start:'top top',end:'bottom bottom',scrub:.4}});
+    gsap.from('.mani .kicker',{autoAlpha:0,x:-30*dir,duration:.8,scrollTrigger:{trigger:'.mani',start:'top 60%'}});
+  })();
+
+  /* lab: board lands */
+  gsap.from('.board',{y:140,rotation:8*dir,autoAlpha:0,duration:1.3,ease:'expo.out',scrollTrigger:{trigger:'.lab__grid',start:'top 80%'}});
+  gsap.from('.lab .chip',{y:20,autoAlpha:0,duration:.5,ease:'back.out(2)',stagger:.03,scrollTrigger:{trigger:'.lab__ctrl',start:'top 85%'}});
+
+  /* packages: cards deal in, stamps slam, tilt to the cursor */
+  gsap.from('.pk',{y:160,rotationX:-35,autoAlpha:0,duration:1.2,ease:'expo.out',stagger:.12,scrollTrigger:{trigger:'.packs__grid',start:'top 85%'}});
+  gsap.from('.pk__stamp',{scale:3,autoAlpha:0,rotation:-20,duration:.5,ease:'power4.in',stagger:.15,delay:.6,scrollTrigger:{trigger:'.packs__grid',start:'top 85%'}});
+  if(fine){$$('.pk').forEach(function(c){
+    var rx=gsap.quickTo(c,'rotationY',{duration:.6,ease:'power3'}),ry=gsap.quickTo(c,'rotationX',{duration:.6,ease:'power3'});
+    c.addEventListener('mousemove',function(e){var r=c.getBoundingClientRect();rx(((e.clientX-r.left)/r.width-.5)*12);ry(-((e.clientY-r.top)/r.height-.5)*10)});
+    c.addEventListener('mouseleave',function(){rx(0);ry(0)});
+  })}
+
+  /* faq rows slide in */
+  gsap.from('.faq details',{x:40*dir,autoAlpha:0,duration:.8,ease:'expo.out',stagger:.06,scrollTrigger:{trigger:'.faq__list',start:'top 85%'}});
 
   /* about: the photo reveals from below */
   gsap.fromTo('.about__img',{clipPath:'inset(100% 0 0 0 round 18px)'},{clipPath:'inset(0% 0 0 0 round 18px)',duration:1.4,ease:'expo.inOut',scrollTrigger:{trigger:'.about__img',start:'top 80%'}});
